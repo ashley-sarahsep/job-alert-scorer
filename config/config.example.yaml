@@ -1,0 +1,98 @@
+# Job Alert Scorer - example configuration.
+#
+# To use the tool:
+#   1. Copy this file to config/config.yaml (or anywhere, and pass --config).
+#   2. Point candidate_profile / candidate_addendum at your own profile files.
+#   3. Put your Gmail credentials.json next to this config and set your API key
+#      in a .env file in the same folder (see .env.example).
+#
+# All paths below are resolved relative to THIS config file's folder, so a
+# private config and its personal files can live together in one directory.
+
+# Which alert emails to read, and how to parse each.
+sources:
+  - name: LinkedIn
+    query: "from:jobalerts-noreply@linkedin.com"
+    parser: linkedin
+  - name: Indeed
+    query: "from:jobalert.indeed.com"
+    parser: indeed
+
+# AI scoring provider and model.
+scoring:
+  provider: anthropic          # anthropic (OpenAI/Google/Groq: experimental-providers branch)
+  model: claude-sonnet-4-6     # model name for the chosen provider
+  max_tokens: 2000
+  temperature: 0
+  delay_seconds: 2.0           # pause between scoring calls (rate-limit politeness)
+
+# Candidate profile (relative to this config file).
+candidate_profile: example/candidate_profile.md
+candidate_addendum: example/candidate_addendum.md
+
+# Output.
+output_directory: ./results
+min_score_to_highlight: 7
+email_to: ""                   # empty = send to the authenticated Gmail account
+
+# Fetching full job descriptions.
+fetch_delay_seconds: 2.0
+
+# Gmail + state files (relative to this config file).
+credentials_file: credentials.json
+token_file: token.json
+last_run_file: last_run.json
+fetch_cache_file: fetch_cache.json
+scored_cache_file: scored_cache.json
+max_jobs_per_run: 50
+
+# Title pre-filter: skip obvious non-fits before paying to score them.
+# A title is skipped if it contains a skip keyword UNLESS it also contains a
+# keep keyword (keep overrides skip). Case-insensitive substring match.
+skip_title_keywords:
+  - software engineer
+  - software developer
+  - data scientist
+  - data engineer
+  - data analyst
+  - devops
+  - machine learning
+  - frontend
+  - backend
+  - full stack
+  - site reliability
+  - solutions architect
+  - security engineer
+  - product designer
+  - ux designer
+  - recruiter
+  - talent acquisition
+  - financial analyst
+  - clinical
+  - warehouse
+  - director
+  - vice president
+  - " vp "
+  - "vp,"
+  - svp
+  - head of
+  - principal
+
+keep_title_keywords:
+  - chief of staff
+  - executive assistant
+  - business partner
+  - office of the
+  - enablement
+  - implementation
+  - onboarding
+  - adoption
+  - customer success
+  - client success
+  - customer education
+  - training
+  - operations
+  - revenue operations
+  - project manager
+  - program manager
+  - partnerships
