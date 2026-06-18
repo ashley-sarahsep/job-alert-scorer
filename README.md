@@ -174,19 +174,25 @@ genuine exception and add a keep keyword.
 
 ---
 
-## AI provider
+## Supported AI providers
 
-This release uses **Anthropic (Claude)**. Set the model in `config.yaml` and put
-your key in `.env`:
+Set `scoring.provider` and `scoring.model` in `config.yaml`, and put the
+matching key in your `.env`.
 
-| Provider | `provider` | Example model | Key (env) |
-|---|---|---|---|
-| Anthropic | `anthropic` | `claude-sonnet-4-6` | `ANTHROPIC_API_KEY` |
+| Provider | `provider` | Example model | Key (env) | Setup | Notes |
+|---|---|---|---|---|---|
+| Anthropic | `anthropic` | `claude-sonnet-4-6` | `ANTHROPIC_API_KEY` | (default) | Tested; prompt-caches the profile for low cost |
+| OpenAI | `openai` | `gpt-4o-mini` | `OPENAI_API_KEY` | `pip install openai` | Best-effort, verify on your account |
+| Google | `google` | `gemini-1.5-flash` | `GOOGLE_API_KEY` | `pip install google-generativeai` | Best-effort |
+| Groq | `groq` | `llama-3.1-70b-versatile` | `GROQ_API_KEY` | `pip install groq` | Best-effort |
 
-Scoring sits behind a small provider interface, so other providers can be added.
-Experimental **OpenAI / Google / Groq** implementations (unverified) live on the
-`experimental-providers` branch - see **[docs/PROVIDERS.md](docs/PROVIDERS.md)**
-for the per-provider review and red flags.
+Anthropic is the default and the only provider exercised against a live API in
+this project. The others follow each SDK's documented shape but should be
+verified before you rely on them - see **[docs/PROVIDERS.md](docs/PROVIDERS.md)**
+for a per-provider review and the red flags to watch for. Adding a provider is a
+single file - see Contributing.
+
+---
 
 ## Cost management
 

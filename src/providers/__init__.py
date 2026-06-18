@@ -1,9 +1,4 @@
-"""Provider registry. This release ships and tests Anthropic (Claude) only.
-
-OpenAI / Google / Groq implementations live on the 'experimental-providers'
-branch (unverified). To add one, drop a `<name>_provider.py` here subclassing
-BaseProvider and register it below.
-"""
+"""Provider registry. Maps a config provider name to its implementation."""
 
 
 def get_provider(name, model):
@@ -11,8 +6,14 @@ def get_provider(name, model):
     if name == "anthropic":
         from providers.anthropic_provider import AnthropicProvider
         return AnthropicProvider(model)
-    raise ValueError(
-        f"Provider {name!r} is not bundled in this release - only 'anthropic' is "
-        "shipped and tested. OpenAI/Google/Groq are available (untested) on the "
-        "'experimental-providers' branch."
-    )
+    if name == "openai":
+        from providers.openai_provider import OpenAIProvider
+        return OpenAIProvider(model)
+    if name == "google":
+        from providers.google_provider import GoogleProvider
+        return GoogleProvider(model)
+    if name == "groq":
+        from providers.groq_provider import GroqProvider
+        return GroqProvider(model)
+    raise ValueError(f"Unknown scoring provider: {name!r}. "
+                     "Choose one of: anthropic, openai, google, groq.")

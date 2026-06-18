@@ -16,5 +16,8 @@ beautifulsoup4>=4.12.0
 pyyaml>=6.0
 python-dotenv>=1.0
 
-# AI provider (Anthropic / Claude).
+# Default AI provider (Anthropic / Claude). Other providers are optional:
+#   pip install openai              # for the OpenAI provider
+#   pip install google-generativeai # for the Google / Gemini provider
+#   pip install groq                # for the Groq provider
 anthropic>=0.49.0
