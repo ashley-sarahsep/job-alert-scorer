@@ -1,0 +1,33 @@
+# Never commit personal configs or profiles
+config/config.yaml
+config/candidate_profile.md
+config/candidate_addendum.md
+config/last_run.json
+
+# Credentials and secrets
+.env
+credentials.json
+token.json
+token.pickle
+.auth_state.json
+
+# Local run state / caches
+last_run.json
+fetch_cache.json
+scored_cache.json
+raw_emails/
+
+# Results
+results/*.csv
+results/*.md
+!results/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+dist/
