@@ -14,7 +14,7 @@ fragments that follow it up to the next job. A job card lays out as:
     "Senior Recruiter - Business Analytics"        # title
     "Capital One"                                  # company
     "3.9"                                          # rating (optional)
-    "Toronto, ON"                                  # location
+    "Austin, TX"                                   # location
     "$65,581-$101,626 a year"                      # salary (optional)
     "This will include creating compelling…"        # snippet
     "7 days ago"                                    # posted age
@@ -78,7 +78,9 @@ _STOP = (
     "privacy policy",
 )
 
-_LOCATION_HINTS = ("remote", "hybrid", "on-site", "onsite", "canada", "ontario")
+# Work-arrangement words plus a ", XX" state/province code (checked separately)
+# cover location lines region-neutrally.
+_LOCATION_HINTS = ("remote", "hybrid", "on-site", "onsite", "anywhere")
 
 
 def _is_noise(text):

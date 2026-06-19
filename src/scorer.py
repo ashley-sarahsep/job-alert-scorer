@@ -30,42 +30,59 @@ different career track, or has hard blockers.
 cannot be addressed.
 
 HARD BLOCKERS (automatic score cap of 4):
-- Role requires proficiency in SQL, Python, or data engineering (candidate is \
-currently learning, not proficient)
-- Role requires hands-on coding or software engineering
-- Role requires formal people management of 10+ direct reports
-- Role requires deep domain expertise in healthcare, fintech, cybersecurity, or \
-developer tools
-- Role requires Salesforce administration depth (candidate has familiarity, not \
-admin-level)
-- Role is director/VP level at a company with 200+ employees
-- Role requires a specific degree the candidate does not have (e.g., MBA \
-required, not preferred)
+A hard blocker is a requirement the candidate genuinely cannot meet right now - \
+not something they could learn in a few months. Treat as hard blockers the \
+dealbreakers the candidate's profile lists, plus any absolute, non-negotiable \
+requirement in the posting that the candidate clearly does not meet (for example \
+a required licence, clearance, or specific degree marked "required"; a core \
+technical skill the profile says they lack; or a seniority level well beyond \
+their demonstrated experience). If any hard blocker applies, cap the score at 4. \
+When unsure whether something is a hard blocker or a learnable gap, treat it as a \
+soft gap, not a blocker.
 
 SOFT GAPS (note but don't treat as blockers):
-- Single employer history (candidate has a strong explanation)
-- Lack of formal certifications (candidate is self-taught on all systems)
-- Small team experience (scaling is about logic, not team size)
-- Industry-specific terminology the candidate hasn't used but has equivalent \
-experience
+A soft gap is a real but surmountable gap - a skill the candidate could pick up, \
+adjacent rather than identical experience, or missing industry vocabulary for \
+work they have effectively done. Note soft gaps in key_gaps and let them moderate \
+the score, but do not cap or heavily penalise for them. Prefer the gaps and \
+dealbreakers the candidate states in their profile over your own assumptions.
 
 UNIQUE MATCH SIGNALS (flag these positively):
-- "Build from scratch" / "no existing processes" language - strong match
-- "Ambiguity" / "figure things out" / "founder mentality" - strong match
-- AI adoption, AI enablement, deploying AI to non-technical users - direct match
-- Cross-functional coordination, bridging technical and business teams - core \
-strength
-- Enterprise client management, client onboarding, customer success - strong match
-- Training programme design, enablement content, documentation - strong match
-- Remote-first or async culture
-- Growth-stage company - ideal environment match
-- Chief of Staff or executive support - direct experience
-- Executive Business Partner / EA roles - strong target
+Unique match signals are conditions in a posting that make a role an especially \
+strong fit for THIS candidate, drawn from the signals named in their profile - \
+the environments, role characteristics, company stage/size, culture markers, and \
+mission they say they do their best work in. When the posting shows these, list \
+them in unique_match_signals and let them lift the score. Use the signals from \
+the candidate's own profile rather than a fixed list.
+
+TRANSFERABILITY (critical - do not keyword-match):
+- Do not score on title or keyword overlap alone. Look at the underlying \
+capabilities the role requires and compare them to capabilities the candidate \
+has actually demonstrated, even when the vocabulary is different.
+- The same work often hides behind different words: a role asking for "customer \
+success operations" and a profile describing "client account management with \
+process design and retention tracking" describe overlapping capability. Identify \
+and name these connections.
+- Domain is usually the learnable part. Someone who built onboarding programmes \
+in one industry has the same structural skills - process design, documentation, \
+cross-functional coordination, client management - needed to build onboarding in \
+another; the industry knowledge is what they would ramp on, not the capability.
+- Read between the lines of terse experience. "Ran everything for a COO at a \
+small company" can mean executive partnership, project management, and \
+operations leadership at once; infer the capability rather than taking the title \
+literally.
+- When the candidate's experience maps to the role through capability \
+translation rather than a direct title match, state this explicitly in \
+transferability_notes and name the connection. When it is a direct match, say \
+so. When the bridge is a genuine stretch, call it a stretch - this is honest \
+translation, not creative fiction.
 
 COMPENSATION CHECK:
-- Use the candidate profile's stated target. US remote roles paying in USD: \
-check if the company hires Canadian contractors or uses an EOR. If compensation \
-is listed and clearly below the candidate's floor, flag as below range.
+- Use the candidate profile's stated target and currency. For roles that pay in \
+a different currency or country than the candidate, weigh the cross-border \
+preferences the profile states (for example whether they can work as a \
+contractor or through an EOR). If compensation is listed and clearly below the \
+candidate's floor, flag as below range; if it is not listed, say so.
 
 LOCATION CHECK:
 - Use the candidate profile's stated location and commuting tolerance. Remote \
@@ -97,6 +114,13 @@ SCORE_SCHEMA = {
         "key_alignments": {"type": "array", "items": {"type": "string"}},
         "key_gaps": {"type": "array", "items": {"type": "string"}},
         "unique_match_signals": {"type": "array", "items": {"type": "string"}},
+        "transferability_notes": {
+            "type": "string",
+            "description": "Where the candidate's experience maps to the role "
+                           "through capability translation rather than a direct "
+                           "title/keyword match; name the connections. If it is a "
+                           "direct match, say so.",
+        },
         "hard_blockers": {
             "type": "array", "items": {"type": "string"},
             "description": "Hard blockers present, if any (these cap the score at 4)",
@@ -123,8 +147,9 @@ SCORE_SCHEMA = {
     },
     "required": [
         "score", "fit_summary", "key_alignments", "key_gaps",
-        "unique_match_signals", "hard_blockers", "interesting_stretch",
-        "transferable_angle", "compensation", "location", "recommendation",
+        "unique_match_signals", "transferability_notes", "hard_blockers",
+        "interesting_stretch", "transferable_angle", "compensation", "location",
+        "recommendation",
     ],
     "additionalProperties": False,
 }
@@ -200,14 +225,20 @@ def score_jobs(jobs, config, provider):
     cache = load_cache(cache_path)
 
     scorable = [j for j in jobs if not j.get("description_result", {}).get("insufficient")]
-    print(f"\nScoring {len(scorable)} job(s) with {provider.model} "
-          f"(cached scores reused; {delay}s between calls)...\n")
+    total = len(scorable)
+    print(f"\nScoring {total} job(s) with {provider.model}. Each job is sent to the "
+          f"AI and takes a few seconds; already-scored jobs are reused from cache. "
+          f"Progress shows below - please leave it running.\n")
 
-    for job in scorable:
+    for i, job in enumerate(scorable, start=1):
         jid = job["job_id"]
+        label = f"{(job.get('title') or '')[:45]} @ {job.get('company', '')}"
         if jid in cache:
             job["score_result"] = cache[jid]
+            sc = cache[jid].get("score", "?")
+            print(f"  [{i:>3}/{total}] cached   {sc}/10  {label}", flush=True)
             continue
+        print(f"  [{i:>3}/{total}] scoring  {label} ...", flush=True)
         description = (job.get("description_result") or {}).get("description", "")
         try:
             result = score_one(provider, candidate_profile, job, description,
@@ -217,6 +248,9 @@ def score_jobs(jobs, config, provider):
         job["score_result"] = result
         if "_error" not in result:
             cache[jid] = result
+            print(f"           -> {result['score']}/10  {result['recommendation']}", flush=True)
+        else:
+            print(f"           -> could not score ({str(result['_error'])[:60]})", flush=True)
         if delay:
             time.sleep(delay)
 

@@ -81,7 +81,7 @@ def test_greenhouse_hit():
         "boards-api.greenhouse.io/v1/boards/acmecloud/jobs": (200, {
             "jobs": [
                 {"title": "Implementation Manager",
-                 "location": {"name": "Remote - Canada"},
+                 "location": {"name": "Remote - US"},
                  "content": "&lt;p&gt;Own enterprise onboarding end to end.&lt;/p&gt;",
                  "absolute_url": "https://boards.greenhouse.io/acmecloud/jobs/123"},
             ]
@@ -104,7 +104,7 @@ def test_lever_hit_after_greenhouse_miss():
              "content": "x", "absolute_url": "g"}]}),
         "api.lever.co/v0/postings/globex": (200, [
             {"text": "Executive Business Partner",
-             "categories": {"location": "Toronto"},
+             "categories": {"location": "Austin"},
              "descriptionPlain": "Support the CEO and run the office of the CEO.",
              "hostedUrl": "https://jobs.lever.co/globex/abc"},
         ]),

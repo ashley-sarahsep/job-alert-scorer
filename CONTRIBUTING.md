@@ -22,10 +22,12 @@ for t in tests/test_*.py; do python "$t"; done
 ## Good first contributions
 
 - **A new alert-email parser.** Out of the box the tool parses **LinkedIn** and
-  **Indeed** alerts (`src/linkedin_parser.py`, `src/indeed_parser.py`). Other
-  boards (Wellfound, Glassdoor, etc.) need a parser that turns their alert emails
-  into job records. Model a new one on the existing parsers and wire it up in the
-  config's `sources` list with a `parser:` name.
+  **Indeed** alerts (`src/linkedin_parser.py`, `src/indeed_parser.py`), and any
+  other board can be read with the best-effort **`generic`** parser
+  (`src/generic_parser.py`). A *dedicated* parser for a popular board (Wellfound,
+  Glassdoor, ZipRecruiter, ...) is more reliable than the generic one - model a
+  new one on the existing parsers, register it in `PARSERS` in `src/main.py`, and
+  wire it up in the config's `sources` list with a `parser:` name.
 
 - **A new AI provider.** Create `src/providers/<name>_provider.py` with a class
   that subclasses `BaseProvider` and implements `score_job(...)` returning the

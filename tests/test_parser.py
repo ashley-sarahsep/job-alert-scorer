@@ -25,14 +25,14 @@ ANCHOR_INTERNAL = """
 <a href="https://www.linkedin.com/comm/jobs/view/4429706742?trk=eml-x">
   <table><tr><td>
     <span>Senior People Partner</span>
-    <span>Remitly · Burnaby, British Columbia, Canada</span>
+    <span>Remitly · Austin, Texas, United States</span>
     <span>Actively recruiting</span>
   </td></tr></table>
 </a>
 <a href="https://www.linkedin.com/comm/jobs/view/4379272114?trk=eml-x">
   <table><tr><td>
     <span>Customer Activation | Partnerships</span>
-    <span>Ramp · Greater Toronto Area, Canada (Remote)</span>
+    <span>Ramp · Greater Boston Area, United States (Remote)</span>
     <span>$116K-$177K / year</span>
     <span>Actively recruiting</span>
   </td></tr></table>
@@ -45,13 +45,13 @@ SIBLING_LAYOUT = """
 <html><body>
 <table><tr><td>
   <a href="https://www.linkedin.com/comm/jobs/view/3812345678/?trk=eml-x">Implementation Manager</a>
-  <div>Acme Cloud Inc · Remote (Canada)</div>
+  <div>Acme Cloud Inc · Remote (US)</div>
   <div>Actively recruiting</div>
   <a href="https://www.linkedin.com/comm/jobs/view/3812345678/?trk=eml-btn">View job</a>
 </td></tr></table>
 <table><tr><td>
   <a href="https://www.linkedin.com/comm/jobs/view/3812345678/?trk=eml-dupe">Implementation Manager</a>
-  <div>Acme Cloud Inc · Remote (Canada)</div>
+  <div>Acme Cloud Inc · Remote (US)</div>
 </td></tr></table>
 </body></html>
 """
@@ -68,14 +68,14 @@ def test_anchor_internal():
     a = jobs["4429706742"]
     assert a["title"] == "Senior People Partner", a
     assert a["company"] == "Remitly", a
-    assert a["location"] == "Burnaby, British Columbia, Canada", a
+    assert a["location"] == "Austin, Texas, United States", a
     assert a["salary"] == "", a
     assert a["warnings"] == [], a
 
     b = jobs["4379272114"]
     assert b["title"] == "Customer Activation | Partnerships", b  # '|' in title preserved
     assert b["company"] == "Ramp", b
-    assert b["location"] == "Greater Toronto Area, Canada (Remote)", b
+    assert b["location"] == "Greater Boston Area, United States (Remote)", b
     assert b["salary"] == "$116K-$177K / year", b
 
 
@@ -85,7 +85,7 @@ def test_sibling_layout_and_dedup():
     j = jobs[0]
     assert j["title"] == "Implementation Manager", j
     assert j["company"] == "Acme Cloud Inc", j
-    assert j["location"] == "Remote (Canada)", j
+    assert j["location"] == "Remote (US)", j
     assert j["url"] == "https://www.linkedin.com/jobs/view/3812345678/", j
 
 
@@ -97,7 +97,7 @@ INDEED_ALERT = """
   <a href="https://ca.indeed.com/rc/clk/dl?jk=8113cad67ff68807&from=ja">Senior Recruiter - Business Analytics</a>
   <span>Capital One</span>
   <span>3.9</span>
-  <span>Toronto, ON</span>
+  <span>Austin, TX</span>
   <span>This will include sourcing diverse candidate pipelines…</span>
   <span>7 days ago</span>
 </td></tr>
@@ -122,7 +122,7 @@ def test_indeed_organic_and_sponsored():
     organic = jobs["8113cad67ff68807"]
     assert organic["title"] == "Senior Recruiter - Business Analytics", organic
     assert organic["company"] == "Capital One", organic
-    assert organic["location"] == "Toronto, ON", organic
+    assert organic["location"] == "Austin, TX", organic
     assert organic["posted"] == "7 days ago", organic
     assert organic["salary"] == "", organic
     assert organic["warnings"] == [], organic

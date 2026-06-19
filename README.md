@@ -11,7 +11,7 @@ the code.
 
 > **New here?** The [illustrated getting-started guide](https://ashley-sarahsep.github.io/job-alert-scorer/)
 > walks through the whole flow in plain language. Prefer not to install anything?
-> There's a [no-code version](docs/no-code-claude-template.md) you can run inside
+> There are [no-code versions](docs/claude-project-companion.md) you can run inside
 > Claude or ChatGPT.
 
 ---
@@ -23,7 +23,8 @@ Gmail alerts  ->  extract jobs  ->  title pre-filter  ->  fetch full description
               ->  score fit (AI)  ->  ranked email + CSV + markdown
 ```
 
-- Reads alert emails from **LinkedIn** and **Indeed** (configurable senders).
+- Reads alert emails from **LinkedIn** and **Indeed** (configurable senders),
+  plus a best-effort **generic** parser for any other board.
 - **Title pre-filter** skips obvious non-fits (e.g. software engineering or
   director-level roles) before they cost anything to score - but still lists
   them so you can catch exceptions.
@@ -51,8 +52,8 @@ Gmail alerts  ->  extract jobs  ->  title pre-filter  ->  fetch full description
   ships in `config/example/`.
 - About **30 minutes** for first-time setup (most of it the one-time Gmail step).
 
-Prefer not to install anything? Use the
-[no-code Claude template](docs/no-code-claude-template.md) instead.
+Prefer not to install anything? Use a
+[no-code Claude option](docs/claude-project-companion.md) instead (see below).
 
 ---
 
@@ -150,9 +151,27 @@ profile when scoring.
 and fill in the bracketed prompts. The
 **[profile guide](docs/PROFILE_GUIDE.md)** explains what each section is for and
 how it drives scoring: hard blockers cap the score at 4, unique signals lift it,
-and soft gaps are noted rather than penalised. Tip - paste your resume into
-Claude or ChatGPT and ask it to draft the profile in this template's format, then
+and soft gaps are noted rather than penalised. Don't want a blank page? Paste
+your resume plus our [ready-made profile-builder prompt](docs/profile-builder-prompt.md)
+into Claude or ChatGPT and it drafts the profile in this format for you to
 refine.
+
+---
+
+## No-code options (nothing to install)
+
+Don't want to run the Python tool at all? Two Claude/ChatGPT options use the same
+profile format:
+
+- **[Job Search Companion](docs/claude-project-companion.md)** - the fuller
+  experience. A Claude project that helps you *build and refine your profile*
+  (including spotting transferable skills you might undersell) and then scores
+  jobs with transferability analysis. Best if you're starting from scratch.
+- **[Scoring template](docs/no-code-claude-template.md)** - lightweight. Paste a
+  job description, get a score. Best once your profile is written.
+
+There's also a one-off **[profile-builder prompt](docs/profile-builder-prompt.md)**
+that drafts your profile from your resume in any AI assistant.
 
 ---
 
@@ -171,6 +190,28 @@ is case-insensitive substring matching, so prefer specific multi-word phrases
 (`software engineer`, not `engineer`). Skipped jobs are still listed at the
 bottom of the output (with the keyword that caught them), so you can spot a
 genuine exception and add a keep keyword.
+
+---
+
+## Other job boards
+
+LinkedIn and Indeed have precise, dedicated parsers. For any other board, add a
+source with **`parser: generic`** - a best-effort parser that reads job links
+from the alert email and, if it finds none and `ANTHROPIC_API_KEY` is set, falls
+back to asking the model to extract the postings. It only needs to recover the
+title and company; the tool fetches the full description from the careers page
+and scores that.
+
+```yaml
+sources:
+  - name: Glassdoor
+    query: "from:noreply@glassdoor.com"
+    parser: generic
+```
+
+Treat generic results as best-effort and sanity-check the first few runs. For a
+board you use a lot, a dedicated parser is more reliable - see
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
@@ -210,7 +251,12 @@ single file - see Contributing.
 
 ---
 
-## Running on a schedule
+## Running on a schedule (optional)
+
+**You don't have to schedule anything.** The normal way to use the tool is to run
+the one command by hand whenever you want to check for new roles - that's it.
+Scheduling is purely for people who'd like it to run automatically in the
+background; skip this section otherwise.
 
 The tool is a single command, so any scheduler works. Run it once by hand first
 (to do the one-time Gmail browser auth), then automate it.
@@ -237,11 +283,13 @@ scoring is cached, so scheduled runs stay cheap.
 Each job's description, your candidate profile, and a scoring **rubric** are sent
 to the model, which returns a structured assessment (enforced by a JSON schema):
 a 1-10 score, a fit summary, key alignments and gaps, unique match signals, any
-hard blockers (which cap the score at 4), a compensation and location flag, a
-"worth a shot" transferable-stretch flag, and an Apply/Consider/Pass
-recommendation. The rubric lives in `src/scorer.py`; the per-candidate specifics
-(targets, blockers, comp, location) come from your profile files, so you tune
-behaviour by editing your profile, not the code.
+hard blockers (which cap the score at 4), transferability notes (where your
+experience maps to a role through capability translation rather than a keyword
+match), a compensation and location flag, a "worth a shot" transferable-stretch
+flag, and an Apply/Consider/Pass recommendation. The rubric lives in
+`src/scorer.py` and is generic - the per-candidate specifics (targets, blockers,
+comp, location, signals) all come from your profile files, so you tune behaviour
+by editing your profile, not the code.
 
 ---
 
@@ -265,7 +313,8 @@ src/
   main.py            CLI entry point and pipeline
   config_loader.py   YAML config + path resolution + .env
   gmail_reader.py    Gmail OAuth + message retrieval
-  linkedin_parser.py / indeed_parser.py   Alert email parsers
+  linkedin_parser.py / indeed_parser.py   Per-board alert parsers
+  generic_parser.py  Best-effort parser for any other board (+ AI fallback)
   deduplication.py   Job dedup
   title_filter.py    Title pre-filter
   job_fetcher.py     Careers-page (ATS) fetch + web-search fallback
@@ -277,10 +326,12 @@ config/
   config.example.yaml
   example/           Fictional "Sarah Ashley" profile + addendum + blank templates
 docs/
-  PROFILE_GUIDE.md            How to write your candidate profile
-  PROVIDERS.md                AI provider notes + review
-  no-code-claude-template.md  No-setup scoring inside Claude / ChatGPT
-  index.html                  Illustrated getting-started page (GitHub Pages)
+  PROFILE_GUIDE.md             How to write your candidate profile
+  profile-builder-prompt.md    Copy-paste prompt to draft your profile from a resume
+  claude-project-companion.md  No-code Claude project: build a profile + score jobs
+  no-code-claude-template.md   No-code Claude project: scoring only
+  PROVIDERS.md                 AI provider notes + review
+  index.html                   Illustrated getting-started page (GitHub Pages)
 tests/               Offline tests (no network or API keys needed)
 ```
 

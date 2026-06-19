@@ -30,6 +30,9 @@ from gmail_reader import (  # noqa: E402
 )
 from linkedin_parser import parse_job_alert as parse_linkedin  # noqa: E402
 from indeed_parser import parse_job_alert as parse_indeed  # noqa: E402
+from generic_parser import (  # noqa: E402
+    parse_job_alert as parse_generic, ai_extract as generic_ai_extract,
+)
 from job_fetcher import fetch_description, load_cache, save_cache  # noqa: E402
 from deduplication import dedupe_jobs  # noqa: E402
 from title_filter import matched_skip  # noqa: E402
@@ -37,7 +40,27 @@ from scorer import score_jobs  # noqa: E402
 from providers import get_provider  # noqa: E402
 import output  # noqa: E402
 
-PARSERS = {"linkedin": parse_linkedin, "indeed": parse_indeed}
+PARSERS = {"linkedin": parse_linkedin, "indeed": parse_indeed, "generic": parse_generic}
+
+
+def build_generic_ai_extractor(config, sources):
+    """An AI fallback for the generic parser, or None if unavailable.
+
+    Used only when a source has parser: generic. Uses an Anthropic client (like
+    --web-search), so it needs ANTHROPIC_API_KEY; without it, the generic parser
+    stays heuristic-only.
+    """
+    if not any(s.get("parser") == "generic" for s in sources):
+        return None
+    try:
+        from anthropic_client import get_client
+        client = get_client()
+    except Exception:  # noqa: BLE001 - no key / SDK -> heuristic only
+        return None
+    scoring = config.get("scoring", {})
+    model = (scoring.get("model") if scoring.get("provider", "anthropic") == "anthropic"
+             else "claude-sonnet-4-6")
+    return lambda body, label: generic_ai_extract(body, label, client, model)
 
 
 def parse_since(value):
@@ -134,7 +157,8 @@ def enrich_with_descriptions(jobs, config, limit=None, use_web_search=False):
         else:
             counts["full"] += 1
             tag = f"FULL via {result['source']} (match {result['match_score']})"
-        print(f"  {i:>3}/{len(targets)}  {tag:32}  {job['title'][:42]} @ {job.get('company','')}")
+        print(f"  {i:>3}/{len(targets)}  {tag:32}  {job['title'][:42]} @ {job.get('company','')}",
+              flush=True)
 
     save_cache(config.get("fetch_cache_file"), cache)
     print(f"\nFetch summary: {counts['full']} full, {counts['partial']} partial "
@@ -159,6 +183,8 @@ def print_ranked(jobs, min_highlight=7):
         print(f"   {r['fit_summary']}")
         if r.get("transferable_angle"):
             print(f"   Worth a shot: {r['transferable_angle']}")
+        if r.get("transferability_notes"):
+            print(f"   Transferability: {r['transferability_notes']}")
         print(f"   Compensation: {r['compensation']} | Location: {r['location']}")
         if r.get("hard_blockers"):
             print(f"   Hard blockers: {', '.join(r['hard_blockers'])}")
@@ -246,6 +272,7 @@ def main(argv=None):
     max_emails = args.limit or config.get("max_jobs_per_run", 50)
     run_started = int(time.time())
     all_jobs = []
+    generic_ai = build_generic_ai_extractor(config, sources)
 
     for source in sources:
         parse_fn = PARSERS.get(source.get("parser"))
@@ -275,7 +302,11 @@ def main(argv=None):
             if kind == "none" or not body:
                 print(f"  ! skipped email (no readable body): {subject!r}")
                 continue
-            jobs = parse_fn(body, source_label=f"{subject} | {date}")
+            label = f"{subject} | {date}"
+            if source.get("parser") == "generic":
+                jobs = parse_generic(body, source_label=label, ai_extractor=generic_ai)
+            else:
+                jobs = parse_fn(body, source_label=label)
             if not jobs:
                 print(f"  ! no jobs parsed from: {subject!r}")
             for job in jobs:
