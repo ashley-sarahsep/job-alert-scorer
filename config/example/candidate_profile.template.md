@@ -93,8 +93,8 @@
 
 [Your target range and any important context about compensation structure.]
 
-- **Target range:** [e.g. "$110,000 - $130,000 CAD"]
-- **Currency:** [CAD / USD / other]
+- **Target range:** [e.g. "$110,000 - $130,000 USD"]
+- **Currency:** [USD / EUR / GBP / CAD / other]
 - **Notes:** [e.g. "Contractor rates of $120-150K are roughly equivalent to $95-120K salaried after benefits and vacation." Or: "Open to equity-heavy compensation at early-stage startups."]
 
 ---
@@ -103,8 +103,8 @@
 
 - **Based in:** [City, Province/State, Country]
 - **Remote preference:** [e.g. "Remote-only", "Remote preferred, hybrid possible", "Open to in-office"]
-- **Commutable area:** [e.g. "Toronto, Kitchener-Waterloo corridor"]
-- **Location constraints:** [e.g. "Must explicitly list Canada or North America as eligible. Remote-US-only is a blocker unless the company is known to hire Canadian contractors."]
+- **Commutable area:** [e.g. "my metro area and the next city over"]
+- **Location constraints:** [e.g. "Must explicitly list my country/region as eligible. Roles limited to another country are a blocker unless the company hires internationally or uses an EOR."]
 
 ---
 

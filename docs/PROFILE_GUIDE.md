@@ -1,5 +1,16 @@
 # How to Write Your Candidate Profile
 
+> **Where the file is:** start from the blank template at
+> **`config/example/candidate_profile.template.md`** (and the optional
+> `candidate_addendum.template.md` beside it). Copy it, fill it in, and save your
+> version as **`candidate_profile.md`** in your config folder. There's also a
+> complete filled-in example in that same `config/example/` folder you can read
+> for reference.
+>
+> **Don't want to start from a blank page?** Use the
+> [copy-paste profile-builder prompt](profile-builder-prompt.md): paste it plus
+> your resume into Claude or ChatGPT and it drafts the whole thing in this format.
+
 > **About the file format:** The template files end in `.md` (Markdown). They're plain text files. You can open and edit them in any text editor — Notepad on Windows, TextEdit on Mac, Google Docs, or even Word. You don't need any special software.
 
 Your candidate profile is the single most important file in this tool. Every job gets scored against it. A vague profile produces vague scores. A specific, honest profile produces scores you can actually trust.
@@ -59,7 +70,7 @@ Real gaps that you're aware of but that aren't dealbreakers. Being upfront about
 Your target range, the currency, and any structural notes. If you know the difference between contractor and salaried compensation in your market, note it. If you're flexible on compensation for the right role, say so. The scorer uses this to flag jobs that are clearly below or above your range.
 
 ### Location and Commute
-Where you are, what you're open to, and what's a dealbreaker. Be specific about remote policies: "Remote-US only" might or might not work for a Canadian applicant depending on the company's contractor policies. If you know these nuances for your situation, spell them out.
+Where you are, what you're open to, and what's a dealbreaker. Be specific about remote policies: a role listed as "Remote - [single country] only" might or might not work for an applicant based elsewhere, depending on the company's contractor or EOR policies. If you know these nuances for your situation, spell them out.
 
 ### Education and Certifications
 Straightforward. List what you have, note anything in progress. If you're self-taught in areas that typically require formal training, say so. Some job postings list degrees as "required" vs "preferred" and the scorer handles these differently.

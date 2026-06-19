@@ -79,6 +79,8 @@ def _md_job(job):
         lines.append("**Unique match signals:**")
         lines += [f"- {s}" for s in r["unique_match_signals"]]
         lines.append("")
+    if r.get("transferability_notes"):
+        lines += [f"**Transferability:** {r['transferability_notes']}", ""]
     if r.get("key_gaps"):
         lines.append("**Gaps to address:**")
         lines += [f"- {g}" for g in r["key_gaps"]]
@@ -149,6 +151,8 @@ def _full_assessment(r):
         parts.append("Gaps: " + "; ".join(r["key_gaps"]))
     if r.get("unique_match_signals"):
         parts.append("Signals: " + "; ".join(r["unique_match_signals"]))
+    if r.get("transferability_notes"):
+        parts.append("Transferability: " + r["transferability_notes"])
     if r.get("hard_blockers"):
         parts.append("Hard blockers: " + "; ".join(r["hard_blockers"]))
     return " | ".join(parts)
@@ -227,6 +231,10 @@ def _html_job(job):
         items = "".join(f"<li>{e(s)}</li>" for s in r["unique_match_signals"])
         parts.append(f'<div style="font-size:13px;color:{TEXT};"><b>Signals:</b>'
                      f'<ul style="margin:4px 0;">{items}</ul></div>')
+    if r.get("transferability_notes"):
+        parts.append(f'<div style="margin:8px 0;padding:8px 10px;background:#f6ecec;'
+                     f'border-left:3px solid {ROSE_SOFT};font-size:13px;color:{TEXT};">'
+                     f'<b>Transferability:</b> {e(r["transferability_notes"])}</div>')
     if r.get("key_gaps"):
         items = "".join(f"<li>{e(g)}</li>" for g in r["key_gaps"])
         parts.append(f'<div style="font-size:13px;color:{TEXT_MUTED};"><b>Gaps:</b>'
@@ -317,6 +325,8 @@ def render_text(jobs, run_date, min_highlight=7):
             out.append(f"   {r['fit_summary']}")
             if r.get("transferable_angle"):
                 out.append(f"   Worth a shot: {r['transferable_angle']}")
+            if r.get("transferability_notes"):
+                out.append(f"   Transferability: {r['transferability_notes']}")
             out.append(f"   Comp: {r['compensation']} | Location: {r['location']}")
             out.append(f"   Apply: {apply_link(j)}")
             out.append("")

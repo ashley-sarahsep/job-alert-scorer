@@ -17,6 +17,12 @@ sources:
   - name: Indeed
     query: "from:jobalert.indeed.com"
     parser: indeed
+  # Any other board: use the best-effort "generic" parser. It reads job links
+  # from the alert email; if it finds none and ANTHROPIC_API_KEY is set, it asks
+  # the model to extract them. Verify the first few runs. Example:
+  # - name: Glassdoor
+  #   query: "from:noreply@glassdoor.com"
+  #   parser: generic
 
 # AI scoring provider and model.
 scoring:

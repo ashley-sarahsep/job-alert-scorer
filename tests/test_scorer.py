@@ -16,7 +16,7 @@ GOOD = {
 }
 
 JOB = {"title": "Implementation Manager", "company": "Globex",
-       "location": "Remote (Canada)", "salary": "$120K", "board": "LinkedIn", "url": "u"}
+       "location": "Remote (US)", "salary": "$120K", "board": "LinkedIn", "url": "u"}
 
 
 class FakeProvider:

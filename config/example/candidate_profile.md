@@ -14,7 +14,7 @@ experience building processes, onboarding programmes, and cross-functional
 systems at growth-stage software companies. She is the person who joins before
 the playbook exists and writes it.
 
-**Location:** Calgary, Alberta, Canada (works remotely)
+**Location:** Denver, Colorado, USA (works remotely)
 **Email:** sarah.ashley.example@gmail.com
 
 ## Career Timeline
@@ -64,7 +64,7 @@ Progressively expanding roles:
 
 ## Compensation
 
-Target ~$100-120K CAD salaried.
+Target ~$100-120K USD salaried.
 
 ## Education
 

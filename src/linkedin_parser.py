@@ -9,7 +9,7 @@ In the current LinkedIn format, each job is wrapped in an <a href=".../jobs/
 view/ID..."> whose visible text breaks into fragments like:
 
     ["Senior People Partner",
-     "Remitly · Burnaby, British Columbia, Canada",
+     "Remitly · Austin, Texas, United States",
      "Actively recruiting"]
 
 i.e. title, then "Company · Location", then status/metadata (and sometimes a
@@ -22,7 +22,7 @@ Each job is returned as a dict:
         "job_id":   "4429706742",
         "title":    "Senior People Partner",
         "company":  "Remitly",
-        "location": "Burnaby, British Columbia, Canada",
+        "location": "Austin, Texas, United States",
         "salary":   "$116K-$177K / year",   # "" if not listed in the email
         "url":      "https://www.linkedin.com/jobs/view/4429706742/",
         "snippet":  "",                      # description text, if any

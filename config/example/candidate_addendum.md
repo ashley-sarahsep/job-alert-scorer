@@ -36,11 +36,11 @@ this conflicts with the handbook, this addendum wins.
 
 ## Compensation
 
-Target ~$100-120K CAD salaried. Flag clearly-below-range roles, but a strong
+Target ~$100-120K USD salaried. Flag clearly-below-range roles, but a strong
 company at the right level is worth considering near the range.
 
 ## Location
 
-Based in Calgary, AB. Remote-Canada or Remote-North-America preferred. Vancouver
-or Toronto hybrid is possible but not preferred. Do not lower the numeric score
+Based in Denver, CO. Remote-US or Remote-North-America preferred. Seattle or
+Austin hybrid is possible but not preferred. Do not lower the numeric score
 for an acceptable remote role; reflect location in the location field.
