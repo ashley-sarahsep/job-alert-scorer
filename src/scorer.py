@@ -100,6 +100,21 @@ level. Do not inflate the numeric score to surface these; that is what this flag
 is for. When interesting_stretch = true, set transferable_angle to one sentence \
 on the bridge; otherwise leave transferable_angle as an empty string.
 
+ATS KEYWORDS (only when the score is 7 or higher):
+When you assign a score of 7 or higher, populate ats_keywords to help the \
+candidate tailor their resume and cover letter if they apply. When the score is \
+below 7, leave all three lists empty.
+- already_covered: terms and skills from the posting that the candidate's \
+profile already reflects.
+- add_to_resume: terms from the posting the candidate should make sure appear \
+when they apply - work they have plausibly done but may not have described in \
+this exact language. Only include things they can credibly claim from their \
+profile; never invent experience.
+- mirror_phrasing: 2-4 phrases from the posting worth using close to verbatim, \
+because ATS systems scan for the employer's vocabulary, not the candidate's. \
+This is vocabulary matching, not fabrication.
+Keep each list to 4-8 items at most; an overwhelming keyword dump is not useful.
+
 IMPORTANT: The candidate profile may have two parts: a Reference Handbook and an \
 Addendum. When they conflict, the ADDENDUM TAKES PRIORITY - follow it.
 
@@ -144,12 +159,34 @@ SCORE_SCHEMA = {
             "enum": ["Compatible", "Potential issue", "Not compatible"],
         },
         "recommendation": {"type": "string", "enum": ["Apply", "Consider", "Pass"]},
+        "ats_keywords": {
+            "type": "object",
+            "description": "Resume-tailoring keywords; only populated when the "
+                           "score is >= 7, otherwise all three lists are empty.",
+            "properties": {
+                "already_covered": {
+                    "type": "array", "items": {"type": "string"},
+                    "description": "Posting terms the candidate's profile already covers",
+                },
+                "add_to_resume": {
+                    "type": "array", "items": {"type": "string"},
+                    "description": "Posting terms to add when applying - plausibly "
+                                   "claimable from the profile, never invented",
+                },
+                "mirror_phrasing": {
+                    "type": "array", "items": {"type": "string"},
+                    "description": "2-4 posting phrases worth using near-verbatim",
+                },
+            },
+            "required": ["already_covered", "add_to_resume", "mirror_phrasing"],
+            "additionalProperties": False,
+        },
     },
     "required": [
         "score", "fit_summary", "key_alignments", "key_gaps",
         "unique_match_signals", "transferability_notes", "hard_blockers",
         "interesting_stretch", "transferable_angle", "compensation", "location",
-        "recommendation",
+        "recommendation", "ats_keywords",
     ],
     "additionalProperties": False,
 }

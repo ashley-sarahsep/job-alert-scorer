@@ -8,11 +8,11 @@ target roles, compensation, location).
 
 When it's done, save the result as **`candidate_profile.md`** in your config
 folder. (For the full picture of what each section does, see the
-[profile guide](PROFILE_GUIDE.md); for a blank fill-in version, see
+[profile guide](profile-guide.md); for a blank fill-in version, see
 [`config/example/candidate_profile.template.md`](../config/example/candidate_profile.template.md).)
 
 This is the lighter-weight cousin of the [no-code Claude project
-template](no-code-claude-template.md): use *this* prompt to **build** your
+template](claude-scoring-template.md): use *this* prompt to **build** your
 profile, and the project template to **score jobs** with it.
 
 ---

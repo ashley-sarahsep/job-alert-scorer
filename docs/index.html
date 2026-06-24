@@ -522,7 +522,7 @@
         </ol>
         <p>You paste job descriptions in manually instead of having emails read automatically, but the scoring works the same way. The free tier of Claude or ChatGPT is enough to score a handful of jobs per day. There are two versions: a <strong>companion</strong> that also helps you build and refine your profile (and spots transferable skills you might undersell), and a <strong>scoring-only</strong> template.</p>
         <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-project-companion.md" class="nocode-link">Get the companion project</a>
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/no-code-claude-template.md" class="nocode-link" style="background:var(--wood);margin-left:8px;">Scoring-only template</a>
+        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="nocode-link" style="background:var(--wood);margin-left:8px;">Scoring-only template</a>
       </div>
     </div>
 
@@ -563,6 +563,7 @@
           <div class="step-item">
             <h3>Choose your settings <span class="time-est">~5 min</span></h3>
             <p>Open the settings file (it's a plain text file with comments explaining every option). Pick which AI service to use, and list which job alert emails the tool should read (LinkedIn, Indeed, etc.).</p>
+            <div class="callout">First time with the Anthropic API? Follow the <a href="anthropic-setup.html">step-by-step setup guide →</a> to create your key and add a few dollars of credit.</div>
           </div>
           <div class="step-item">
             <h3>Run it <span class="time-est">~1 min</span></h3>
@@ -606,7 +607,7 @@ pip install -r requirements.txt</div>
           </div>
           <div class="step-item">
             <h3>Config</h3>
-            <p><code>cp config.example.yaml config.yaml</code></p>
+            <p><code>cp config.example.yaml config.yaml</code> &middot; first time with the Anthropic API? See the <a href="anthropic-setup.html">step-by-step setup guide →</a></p>
             <div class="code"><span class="dim"># config.yaml — key sections</span>
 sources:
   - name: LinkedIn
@@ -686,6 +687,7 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       </div>
 
       <div class="callout" style="margin-top:16px;"><strong>Your search will evolve.</strong> Use the optional addendum file to update your targeting or adjust scoring rules without rewriting your whole profile. The addendum overrides the main profile where they conflict.</div>
+      <p style="font-size:0.85rem; color:var(--text-mid); margin-top:16px;">Want help building your profile? Read the <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">deep guide →</a> &nbsp;·&nbsp; Prefer visuals? See the <a href="profile-guide-visual.html">visual guide →</a></p>
     </div>
 
     <!-- Scoring -->
@@ -830,8 +832,9 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       <p>Two ways to get started, depending on how technical you are.</p>
       <div class="cta-buttons">
         <a href="https://github.com/ashley-sarahsep/job-alert-scorer" class="cta-btn cta-primary">Get the tool on GitHub</a>
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/no-code-claude-template.md" class="cta-btn cta-secondary">Use the no-code Claude template</a>
+        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="cta-btn cta-secondary">Use the no-code Claude template</a>
       </div>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:18px;"><a href="profile-guide-visual.html">Visual profile guide</a> &nbsp;·&nbsp; <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">Deep profile guide</a> &nbsp;·&nbsp; <a href="anthropic-setup.html">Anthropic setup guide</a></p>
     </div>
 
   </div>

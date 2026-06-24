@@ -53,6 +53,19 @@ def group_jobs(jobs, min_highlight=7):
     return strong, stretch, consider, passes
 
 
+def ats_keywords(r):
+    """The ats_keywords dict if it has content, else None.
+
+    Only surfaced for jobs scoring >= 7 (the model leaves the lists empty below
+    that), so a low score or a provider that omits the field renders nothing.
+    """
+    a = r.get("ats_keywords") or {}
+    if r.get("score", 0) >= 7 and any(
+            a.get(k) for k in ("already_covered", "add_to_resume", "mirror_phrasing")):
+        return a
+    return None
+
+
 # --------------------------------------------------------------------------- #
 # Markdown
 # --------------------------------------------------------------------------- #
@@ -87,6 +100,17 @@ def _md_job(job):
         lines.append("")
     if r.get("hard_blockers"):
         lines.append("**Hard blockers:** " + "; ".join(r["hard_blockers"]))
+        lines.append("")
+    a = ats_keywords(r)
+    if a:
+        lines.append("**ATS keywords** (to tailor your resume if you apply):")
+        if a.get("already_covered"):
+            lines.append("- ✓ Already in your profile: " + ", ".join(a["already_covered"]))
+        if a.get("add_to_resume"):
+            lines.append("- ⊕ Add to your resume: " + ", ".join(a["add_to_resume"]))
+        if a.get("mirror_phrasing"):
+            lines.append("- ✎ Mirror this phrasing: "
+                         + "; ".join(f'"{p}"' for p in a["mirror_phrasing"]))
         lines.append("")
     lines.append(f"**Apply:** {apply_link(job)}")
     lines.append("")
@@ -155,6 +179,12 @@ def _full_assessment(r):
         parts.append("Transferability: " + r["transferability_notes"])
     if r.get("hard_blockers"):
         parts.append("Hard blockers: " + "; ".join(r["hard_blockers"]))
+    a = ats_keywords(r)
+    if a:
+        if a.get("add_to_resume"):
+            parts.append("ATS add: " + "; ".join(a["add_to_resume"]))
+        if a.get("mirror_phrasing"):
+            parts.append("ATS phrasing: " + "; ".join(a["mirror_phrasing"]))
     return " | ".join(parts)
 
 
@@ -242,6 +272,22 @@ def _html_job(job):
     if r.get("hard_blockers"):
         parts.append(f'<div style="font-size:13px;color:{BLOCKER};"><b>Hard blockers:</b> '
                      f'{e("; ".join(r["hard_blockers"]))}</div>')
+    a = ats_keywords(r)
+    if a:
+        rows = []
+        if a.get("already_covered"):
+            rows.append('<div style="margin-top:3px;"><b>✓ Already in your profile:</b> '
+                        f'{e(", ".join(a["already_covered"]))}</div>')
+        if a.get("add_to_resume"):
+            rows.append('<div style="margin-top:3px;"><b>⊕ Add to your resume:</b> '
+                        f'{e(", ".join(a["add_to_resume"]))}</div>')
+        if a.get("mirror_phrasing"):
+            phrases = "; ".join(f'“{p}”' for p in a["mirror_phrasing"])
+            rows.append('<div style="margin-top:3px;"><b>✎ Mirror this phrasing:</b> '
+                        f'{e(phrases)}</div>')
+        parts.append('<div style="margin:8px 0;padding:8px 10px;background:#eef3ef;'
+                     f'border-left:3px solid #6e928c;font-size:13px;color:{TEXT};">'
+                     f'<b>ATS keywords</b>{"".join(rows)}</div>')
     if link:
         parts.append(f'<div style="margin-top:10px;"><a href="{e(link)}" '
                      f'style="background:{ROSE_DEEP};color:#fff;padding:7px 14px;border-radius:6px;'
@@ -328,6 +374,14 @@ def render_text(jobs, run_date, min_highlight=7):
             if r.get("transferability_notes"):
                 out.append(f"   Transferability: {r['transferability_notes']}")
             out.append(f"   Comp: {r['compensation']} | Location: {r['location']}")
+            a = ats_keywords(r)
+            if a:
+                if a.get("already_covered"):
+                    out.append("   ATS already covered: " + ", ".join(a["already_covered"]))
+                if a.get("add_to_resume"):
+                    out.append("   ATS add to resume: " + ", ".join(a["add_to_resume"]))
+                if a.get("mirror_phrasing"):
+                    out.append("   ATS mirror phrasing: " + "; ".join(a["mirror_phrasing"]))
             out.append(f"   Apply: {apply_link(j)}")
             out.append("")
     out.append("== PASSES ==")

@@ -10,7 +10,7 @@ import output  # noqa: E402
 
 def job(jid, title, company, score, rec, board="LinkedIn", salary="",
         ats_url=None, board_url="https://linkedin.com/jobs/view/1",
-        stretch=False, angle="", hard_blockers=None):
+        stretch=False, angle="", hard_blockers=None, ats=None):
     dr = {"source": "email_snippet", "source_url": board_url}
     if ats_url:
         dr = {"source": "greenhouse", "source_url": ats_url}
@@ -24,6 +24,8 @@ def job(jid, title, company, score, rec, board="LinkedIn", salary="",
             "unique_match_signals": ["signal c"], "hard_blockers": hard_blockers or [],
             "interesting_stretch": stretch, "transferable_angle": angle,
             "compensation": "In range", "location": "Compatible",
+            "ats_keywords": ats or {"already_covered": [], "add_to_resume": [],
+                                    "mirror_phrasing": []},
         },
     }
 
@@ -101,6 +103,31 @@ def test_html_escaping():
     assert "A &amp; B Co" in html_body
 
 
+def test_ats_keywords_only_for_strong_fits():
+    ats = {"already_covered": ["onboarding", "HubSpot"],
+           "add_to_resume": ["change management", "stakeholder mapping"],
+           "mirror_phrasing": ["drive adoption across the organization"]}
+    strong = job("a1", "Onboarding Lead", "Globex", 8, "Apply", ats=ats)
+    weak = job("a2", "Ops Coordinator", "Acme", 6, "Consider", ats=ats)
+
+    # The helper gates on score >= 7, regardless of populated keywords.
+    assert output.ats_keywords(strong["score_result"]) == ats
+    assert output.ats_keywords(weak["score_result"]) is None
+
+    md = output.render_markdown([strong, weak], "2026-06-18", min_highlight=7)
+    assert "ATS keywords" in md
+    assert "change management" in md
+    assert "drive adoption across the organization" in md
+
+    _, html_body, text_body = output.render_email([strong, weak], "2026-06-18", 7)
+    assert "ATS keywords" in html_body
+    assert "stakeholder mapping" in html_body
+    assert "ATS add to resume" in text_body
+
+    # A 6/10 job must never show an ATS block even if keywords are present.
+    assert "ATS keywords" not in output.render_markdown([weak], "2026-06-18", 7)
+
+
 def main():
     test_grouping_and_ordering()
     test_apply_link_prefers_careers_page()
@@ -108,6 +135,7 @@ def main():
     test_csv_rows()
     test_skipped_summary_shows_matched_keyword_sorted_by_company()
     test_html_escaping()
+    test_ats_keywords_only_for_strong_fits()
     print("All output tests passed.")
 
 

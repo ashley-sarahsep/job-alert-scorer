@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Your Profile — Visual Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --forest: #2F3D2F;
+    --forest-light: #3D4F3D;
+    --cream: #FAF5F0;
+    --cream-dark: #EDE5D8;
+    --warm-white: #FDFBF8;
+    --rose: #C4A0A0;
+    --rose-deep: #9D7B7B;
+    --rose-light: #DCC8C8;
+    --wood: #8B6B3D;
+    --wood-dark: #5C4528;
+    --mustard: #C8A84E;
+    --mustard-soft: #F8F0DA;
+    --green: #5A8A65;
+    --green-soft: #E8F2EA;
+    --pink-soft: #F0E0E4;
+    --text: #3D2E2E;
+    --text-mid: #5D4A4A;
+    --text-muted: #8D7A7A;
+    --red: #A85454;
+    --red-soft: #F2DEDE;
+    --border: #D8C8C0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--rose);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 32px auto;
+    background: var(--cream);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(60,30,30,0.12);
+  }
+
+  .inner { padding: 0 44px; }
+  @media (max-width: 600px) { .inner { padding: 0 20px; } }
+
+  .hero {
+    background: var(--forest);
+    padding: 48px 44px 40px;
+    color: var(--cream);
+  }
+  @media (max-width: 600px) { .hero { padding: 36px 20px 32px; } }
+  .hero .eyebrow {
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--mustard); margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.75rem; font-weight: 400; line-height: 1.2; margin-bottom: 10px;
+  }
+  .hero p { font-size: 0.88rem; color: var(--rose-light); max-width: 500px; }
+  .hero .back-link {
+    display: inline-block; margin-top: 16px; font-size: 0.8rem;
+    color: var(--mustard); text-decoration: none;
+  }
+  .hero .back-link:hover { text-decoration: underline; }
+
+  .section { padding: 40px 0; border-top: 1px solid var(--border); }
+  .section:first-of-type { border-top: none; }
+  h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.2rem; font-weight: 400; color: var(--forest); margin-bottom: 6px;
+  }
+  .lead { color: var(--text-muted); font-size: 0.86rem; margin-bottom: 24px; }
+
+  /* Transform cards */
+  .transform {
+    margin-bottom: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .tf-row { display: flex; }
+  .tf-label {
+    width: 56px; min-width: 56px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tf-before .tf-label { background: var(--cream-dark); color: var(--rose-deep); }
+  .tf-after .tf-label { background: var(--green); color: white; }
+  .tf-text { padding: 14px 16px; font-size: 0.85rem; flex: 1; }
+  .tf-before { border-bottom: 1px solid var(--border); }
+  .tf-before .tf-text { background: var(--cream-dark); color: var(--text-muted); }
+  .tf-after .tf-text { background: var(--warm-white); }
+  .cap {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    background: var(--green-soft); color: var(--green);
+    padding: 2px 10px; border-radius: 3px;
+    margin: 2px 4px 2px 0;
+  }
+
+  /* Throughline */
+  .timeline { margin: 24px 0; position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 9px; top: 4px; bottom: 4px;
+    width: 3px; background: var(--green); border-radius: 2px;
+  }
+  .tl-item { padding: 10px 0; position: relative; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -27px; top: 14px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--green); border: 2px solid var(--cream);
+  }
+  .tl-role { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+  .tl-desc { font-size: 0.78rem; color: var(--text-muted); }
+  .tl-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    background: var(--green-soft); color: var(--green);
+    padding: 1px 8px; border-radius: 3px; margin-top: 3px;
+  }
+  .tl-summary {
+    margin-top: 16px; padding: 16px 20px;
+    background: var(--forest); color: var(--cream);
+    border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+    text-align: center;
+  }
+
+  /* Transfer map */
+  .transfer-row {
+    display: flex; align-items: stretch;
+    margin-bottom: 8px; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .transfer-from {
+    flex: 1; padding: 14px 16px; font-size: 0.82rem;
+    background: var(--cream-dark); color: var(--text-muted);
+  }
+  .transfer-bridge {
+    width: 52px; min-width: 52px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--green); color: white;
+    font-size: 0.55rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.03em; text-align: center; line-height: 1.2; padding: 4px;
+  }
+  .transfer-to {
+    flex: 1; padding: 14px 16px; font-size: 0.82rem;
+    background: var(--green-soft); color: var(--forest); font-weight: 500;
+  }
+  @media (max-width: 600px) {
+    .transfer-row { flex-direction: column; }
+    .transfer-from { border-radius: 0; }
+    .transfer-bridge { width: 100%; min-width: unset; padding: 6px; }
+    .transfer-to { border-radius: 0; }
+  }
+
+  /* Gap cards */
+  .gap-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; margin: 20px 0;
+  }
+  @media (max-width: 600px) { .gap-grid { grid-template-columns: 1fr; } }
+  .gap-card { padding: 18px; border-radius: 8px; border: 1px solid; }
+  .gap-card.hard { background: var(--red-soft); border-color: #DBBCBC; }
+  .gap-card.soft { background: var(--mustard-soft); border-color: #DDD0A8; }
+  .gap-card.not { background: var(--green-soft); border-color: #B8D4BC; }
+  .gap-card h3 {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 8px;
+  }
+  .gap-card.hard h3 { color: var(--red); }
+  .gap-card.soft h3 { color: var(--wood); }
+  .gap-card.not h3 { color: var(--green); }
+  .gap-card .test {
+    font-size: 0.78rem; font-weight: 600; color: var(--text);
+    margin-bottom: 8px; font-style: italic;
+  }
+  .gap-card p { font-size: 0.76rem; color: var(--text-mid); }
+  .gap-card .effect {
+    margin-top: 12px; padding-top: 10px; font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em; text-align: center;
+  }
+  .gap-card.hard .effect { border-top: 1px solid #D0AAAA; color: var(--red); }
+  .gap-card.soft .effect { border-top: 1px solid #CCC098; color: var(--wood); }
+  .gap-card.not .effect { border-top: 1px solid #A8C8AC; color: var(--green); }
+
+  /* Compare columns */
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 20px 0;
+  }
+  @media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+  .compare-col { padding: 20px; border-radius: 8px; border: 1px solid; }
+  .compare-col.weak { background: var(--red-soft); border-color: #DBBCBC; }
+  .compare-col.strong { background: var(--green-soft); border-color: #B8D4BC; }
+  .compare-col h3 {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 12px;
+  }
+  .compare-col.weak h3 { color: var(--red); }
+  .compare-col.strong h3 { color: var(--green); }
+  .compare-col p { font-size: 0.82rem; color: var(--text-mid); margin-bottom: 10px; }
+  .compare-col p:last-child { margin-bottom: 0; }
+  .compare-col .field {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 2px;
+  }
+
+  /* Prompt boxes */
+  .prompt-box {
+    background: var(--forest); color: var(--cream);
+    padding: 16px 20px; border-radius: 8px; margin: 20px 0;
+    font-size: 0.85rem;
+  }
+  .prompt-box .prompt-label {
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--mustard); margin-bottom: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--mustard-soft); border-left: 3px solid var(--mustard);
+    padding: 14px 20px; border-radius: 0 6px 6px 0;
+    margin: 16px 0; font-size: 0.84rem; color: var(--text-mid);
+  }
+  .callout strong { color: var(--wood-dark); }
+
+  /* CTA */
+  .cta-box {
+    text-align: center; padding: 36px 0; border-top: 1px solid var(--border);
+  }
+  .cta-box h2 { margin-bottom: 10px; }
+  .cta-box p { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 20px; }
+  .cta-btn {
+    display: inline-block; padding: 10px 22px; border-radius: 6px;
+    font-size: 0.84rem; font-weight: 600; text-decoration: none; margin: 0 4px;
+  }
+  .cta-primary { background: var(--forest); color: var(--cream); }
+  .cta-primary:hover { background: var(--forest-light); }
+  .cta-secondary { background: var(--cream-dark); color: var(--forest); border: 1px solid var(--border); }
+  .cta-secondary:hover { background: var(--border); }
+
+  .foot {
+    padding: 28px 44px; text-align: center;
+    color: var(--text-muted); font-size: 0.76rem;
+    border-top: 1px solid var(--border);
+  }
+  .foot a { color: var(--forest); text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Visual Guide</div>
+    <h1>Building a profile that actually works.</h1>
+    <p>The same guide, shown instead of told. For people who learn better by seeing examples than reading paragraphs.</p>
+    <a href="index.html" class="back-link">← Back to Getting Started</a>
+  </div>
+
+  <div class="inner">
+
+    <!-- 1: Tasks → Capabilities -->
+    <div class="section">
+      <h2>Don't describe tasks. Describe capabilities.</h2>
+      <p class="lead">The scorer matches capabilities to job requirements. What your work required you to be good at matters more than what you called it.</p>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Wrote</div><div class="tf-text">"Managed the CRM and handled reporting"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Means</div><div class="tf-text"><span class="cap">System admin</span><span class="cap">Data integrity</span><span class="cap">Workflow design</span><span class="cap">User training</span><span class="cap">Business intelligence</span></div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Wrote</div><div class="tf-text">"Was the go-to person when things went wrong"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Means</div><div class="tf-text"><span class="cap">Institutional knowledge</span><span class="cap">Problem diagnosis</span><span class="cap">Informal leadership</span><span class="cap">Stakeholder trust</span></div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Wrote</div><div class="tf-text">"Created training materials for the team"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Means</div><div class="tf-text"><span class="cap">Instructional design</span><span class="cap">Curriculum architecture</span><span class="cap">Multi-audience content</span></div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Wrote</div><div class="tf-text">"Wore many hats at a small company"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Means</div><div class="tf-text"><span class="cap">Cross-functional ops</span><span class="cap">Prioritisation</span><span class="cap">Building from scratch</span><span class="cap">Resource-constrained execution</span></div></div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Try this</div>
+        For each role you've held, describe what you did day to day in plain language, as if telling a friend. Then pull out the capabilities. Those go in your profile.
+      </div>
+    </div>
+
+    <!-- 2: Throughline -->
+    <div class="section">
+      <h2>Find the pattern across your career.</h2>
+      <p class="lead">Different titles, different companies, but the same kind of work keeps showing up. That's your throughline.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-role">First job: Admin Assistant</div>
+          <div class="tl-desc">Ended up reorganising the filing system, building onboarding docs, and becoming the person who trained new hires</div>
+          <span class="tl-tag">Created order from chaos</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Second job: Account Coordinator</div>
+          <div class="tl-desc">Set up the client reporting process, built templates everyone still uses, became the bridge between sales and delivery</div>
+          <span class="tl-tag">Created order from chaos</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Third job: Operations Lead</div>
+          <div class="tl-desc">Designed the onboarding programme, documented every process, ran the weekly rhythm that kept 4 teams aligned</div>
+          <span class="tl-tag">Created order from chaos</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Now looking for: Implementation Manager</div>
+          <div class="tl-desc">Same pattern, new title. Building structure so clients and teams can do their best work.</div>
+          <span class="tl-tag">Created order from chaos</span>
+        </div>
+      </div>
+      <div class="tl-summary">Your throughline makes your career make sense — even when the titles look scattered. Find it, name it, put it in your summary.</div>
+
+      <div class="prompt-box" style="margin-top:20px;">
+        <div class="prompt-label">Try this</div>
+        Write one sentence that captures the pattern. Test: does it still hold if you swap the company name and industry? If yes, that's your throughline.
+      </div>
+    </div>
+
+    <!-- 3: Transferability -->
+    <div class="section">
+      <h2>Your experience translates. Show the connection.</h2>
+      <p class="lead">Don't hope the scorer figures out why your background is relevant. Draw the line yourself.</p>
+
+      <div class="transfer-row">
+        <div class="transfer-from">Onboarded new clients onto a software platform</div>
+        <div class="transfer-bridge">Same<br>work</div>
+        <div class="transfer-to">Implementation Manager at any SaaS company</div>
+      </div>
+      <div class="transfer-row">
+        <div class="transfer-from">Kept a senior leader organised, informed, and focused</div>
+        <div class="transfer-bridge">Same<br>work</div>
+        <div class="transfer-to">Executive Business Partner / Chief of Staff</div>
+      </div>
+      <div class="transfer-row">
+        <div class="transfer-from">Built how-to guides and walkthroughs for non-technical users</div>
+        <div class="transfer-bridge">Same<br>work</div>
+        <div class="transfer-to">Customer Education / Enablement Lead</div>
+      </div>
+      <div class="transfer-row">
+        <div class="transfer-from">Tracked performance metrics and built reports for stakeholders</div>
+        <div class="transfer-bridge">Same<br>work</div>
+        <div class="transfer-to">Customer Success Ops / Business Intelligence</div>
+      </div>
+
+      <div class="callout">The domain knowledge is the learnable part. Process design, coordination, documentation, and stakeholder management transfer across industries. Your profile should name these connections explicitly.</div>
+    </div>
+
+    <!-- 4: Gap types -->
+    <div class="section">
+      <h2>Know what kind of gap you're looking at.</h2>
+      <p class="lead">Three kinds. They affect scoring very differently.</p>
+
+      <div class="gap-grid">
+        <div class="gap-card hard">
+          <h3>Hard Blocker</h3>
+          <div class="test">"Could I show this in an interview next week?"</div>
+          <p>No. The job needs SQL and you've never written a query. It needs 10 direct reports and you've had zero.</p>
+          <div class="effect">Score capped at 4</div>
+        </div>
+        <div class="gap-card soft">
+          <h3>Soft Gap</h3>
+          <div class="test">"Could I learn this in 3-6 months?"</div>
+          <p>Yes. You've only worked at small companies. You know HubSpot well but haven't touched Salesforce.</p>
+          <div class="effect">Noted, not penalised</div>
+        </div>
+        <div class="gap-card not">
+          <h3>Not a Gap</h3>
+          <div class="test">"Have I done this under a different name?"</div>
+          <p>Yes. Single employer but five progressive roles. No formal title but you did the work.</p>
+          <div class="effect">Don't list it. Explain it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5: Match signals -->
+    <div class="section">
+      <h2>Ground your match signals in evidence.</h2>
+      <p class="lead">Describe where you've ALREADY done your best work, not where you think you'd like to work.</p>
+
+      <div class="compare">
+        <div class="compare-col weak">
+          <h3>Aspiration</h3>
+          <p>"I think I'd thrive remotely."</p>
+          <p>"I'm interested in growth-stage companies."</p>
+          <p>"I like building from scratch."</p>
+        </div>
+        <div class="compare-col strong">
+          <h3>Evidence</h3>
+          <p>"I've worked remotely for four years. My best outcomes happened during that time."</p>
+          <p>"I joined at 12 people and helped build to 40. That pace is where I'm most effective."</p>
+          <p>"Every process my team uses was built by me from nothing."</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Try this</div>
+        For each match signal, write one sentence of proof. If you can't, it's an aspiration, not a signal. It might still belong in your profile, but label it honestly.
+      </div>
+    </div>
+
+    <!-- ATS Keywords -->
+    <div class="section">
+      <h2>Speak the employer's language, not yours.</h2>
+      <p class="lead">Most companies use systems (ATS) that scan your resume for specific terms before a human ever sees it. You might have the right experience described in the wrong words.</p>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Yours</div><div class="tf-text">"Worked across teams to keep projects moving"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Theirs</div><div class="tf-text">"Cross-functional stakeholder management"</div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Yours</div><div class="tf-text">"Set up the CRM and made sure the data was clean"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Theirs</div><div class="tf-text">"CRM administration and data integrity management"</div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Yours</div><div class="tf-text">"Helped new clients get started on the platform"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Theirs</div><div class="tf-text">"Customer onboarding and implementation management"</div></div>
+      </div>
+
+      <div class="transform">
+        <div class="tf-row tf-before"><div class="tf-label">Yours</div><div class="tf-text">"Made guides so people could figure things out themselves"</div></div>
+        <div class="tf-row tf-after"><div class="tf-label">Theirs</div><div class="tf-text">"Self-serve enablement content and knowledge base development"</div></div>
+      </div>
+
+      <p style="font-size:0.84rem; color:var(--text-mid); margin-top:16px;">Same work. Different vocabulary. The ATS scans for their version, not yours. When the scorer flags a job as a strong fit (7+), it includes the specific keywords you should make sure appear in your resume for that posting.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Try this</div>
+        Look at 3-5 job postings for your target roles. What words and phrases keep showing up? Those are your industry's ATS keywords. Make sure your profile uses them naturally instead of your casual descriptions.
+      </div>
+    </div>
+
+    <!-- 6: Shallow vs deep -->
+    <div class="section">
+      <h2>Shallow profile vs. strong profile.</h2>
+      <p class="lead">Same person. Same experience. The difference is depth.</p>
+
+      <div class="compare">
+        <div class="compare-col weak">
+          <h3>Shallow</h3>
+          <p class="field">Summary</p>
+          <p>"Operations professional with 7 years of SaaS experience."</p>
+          <p class="field">Strength</p>
+          <p>"Strong communicator"</p>
+          <p class="field">Target</p>
+          <p>"Operations roles"</p>
+          <p class="field">Blocker</p>
+          <p>(none listed)</p>
+          <p class="field">Signal</p>
+          <p>"I like fast-paced environments"</p>
+        </div>
+        <div class="compare-col strong">
+          <h3>Strong</h3>
+          <p class="field">Summary</p>
+          <p>"Ops lead with 7 years at a B2B SaaS company where I built every client-facing process from onboarding to retention. I create the structure so everyone else can focus on their work."</p>
+          <p class="field">Strength</p>
+          <p>"Translating technical concepts into training materials for non-technical teams (40+ guides, 6 video series)"</p>
+          <p class="field">Target</p>
+          <p>"1. Customer Onboarding, 2. Customer Education, 3. Implementation"</p>
+          <p class="field">Blocker</p>
+          <p>"SQL: currently learning, couldn't pass a live exercise today."</p>
+          <p class="field">Signal</p>
+          <p>"Joined at 12 people and built every process still in use. First-hire roles are where I do my best work."</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.84rem; color:var(--text-mid); margin-top:16px; text-align:center;">The strong version gives the scorer something to work with. Every section connects to real experience with specific details.</p>
+    </div>
+
+    <!-- 7: Get help -->
+    <div class="section">
+      <h2>Stuck? Use the companion project.</h2>
+      <p class="lead">Upload your resume or draft profile into a Claude project with the companion instructions. It asks the follow-up questions this page can't.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Say this</div>
+        "Here's my resume. Help me build my candidate profile. Push me where I'm being vague and help me see transferable skills I'm not articulating."
+      </div>
+      <div class="prompt-box" style="margin-top:8px;">
+        <div class="prompt-label">Or this</div>
+        "Review my profile and tell me where it's shallow. What's missing? Where would a scorer struggle to match my experience to a job?"
+      </div>
+      <p style="margin-top:16px; font-size:0.86rem;"><a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-project-companion.md" style="color:var(--forest); font-weight:600;">Open the companion project instructions →</a></p>
+    </div>
+
+    <div class="cta-box">
+      <h2>Ready?</h2>
+      <p>Grab the template, fill it in, and start scoring.</p>
+      <a href="https://github.com/ashley-sarahsep/job-alert-scorer" class="cta-btn cta-primary">Get the tool</a>
+      <a href="index.html" class="cta-btn cta-secondary">Back to Getting Started</a>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <p>Built by <a href="https://stepinto-ashleysoffice.com">Ashley Sarah</a><br>
+    Part of the <a href="https://github.com/ashley-sarahsep/job-alert-scorer">Job Alert Scorer</a> project.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

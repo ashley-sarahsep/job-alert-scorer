@@ -48,7 +48,7 @@ Gmail alerts  ->  extract jobs  ->  title pre-filter  ->  fetch full description
   month; set a spend limit in your provider console.
 - **Your candidate profile** - a markdown file about your experience and targets.
   Start from the [profile template](config/example/candidate_profile.template.md)
-  and the [profile guide](docs/PROFILE_GUIDE.md); a complete fictional sample
+  and the [profile guide](docs/profile-guide.md); a complete fictional sample
   ships in `config/example/`.
 - About **30 minutes** for first-time setup (most of it the one-time Gmail step).
 
@@ -149,7 +149,7 @@ profile when scoring.
 (and the optional
 [`candidate_addendum.template.md`](config/example/candidate_addendum.template.md))
 and fill in the bracketed prompts. The
-**[profile guide](docs/PROFILE_GUIDE.md)** explains what each section is for and
+**[profile guide](docs/profile-guide.md)** explains what each section is for and
 how it drives scoring: hard blockers cap the score at 4, unique signals lift it,
 and soft gaps are noted rather than penalised. Don't want a blank page? Paste
 your resume plus our [ready-made profile-builder prompt](docs/profile-builder-prompt.md)
@@ -167,7 +167,7 @@ profile format:
   experience. A Claude project that helps you *build and refine your profile*
   (including spotting transferable skills you might undersell) and then scores
   jobs with transferability analysis. Best if you're starting from scratch.
-- **[Scoring template](docs/no-code-claude-template.md)** - lightweight. Paste a
+- **[Scoring template](docs/claude-scoring-template.md)** - lightweight. Paste a
   job description, get a score. Best once your profile is written.
 
 There's also a one-off **[profile-builder prompt](docs/profile-builder-prompt.md)**
@@ -320,14 +320,36 @@ config/
   config.example.yaml
   example/           Fictional "Sarah Ashley" profile + addendum + blank templates
 docs/
-  PROFILE_GUIDE.md             How to write your candidate profile
+  profile-guide.md             How to write your candidate profile
+  building-a-strong-profile.md Deep guide: describe your experience at the capability level
   profile-builder-prompt.md    Copy-paste prompt to draft your profile from a resume
   claude-project-companion.md  No-code Claude project: build a profile + score jobs
-  no-code-claude-template.md   No-code Claude project: scoring only
+  claude-scoring-template.md   No-code Claude project: scoring only
+  profile-guide-visual.html    Visual profile guide (GitHub Pages)
+  anthropic-setup.html         Step-by-step Anthropic API setup (GitHub Pages)
   PROVIDERS.md                 AI provider notes + review
   index.html                   Illustrated getting-started page (GitHub Pages)
 tests/               Offline tests (no network or API keys needed)
 ```
+
+---
+
+## Guides and Resources
+
+**Getting started:** [Getting Started page](https://ashley-sarahsep.github.io/job-alert-scorer/) - setup walkthrough with a "show me simply" / "I'm technical" toggle.
+
+**Building your profile:**
+- [Visual guide](https://ashley-sarahsep.github.io/job-alert-scorer/profile-guide-visual.html) - the same concepts, shown instead of told
+- [Deep guide](docs/building-a-strong-profile.md) - how to think about your experience at the capability level
+- [Profile template](config/example/candidate_profile.template.md) - fill-in-the-blank template
+- [Profile reference](docs/profile-guide.md) - quick reference on what each section does
+
+**No-code option (no terminal, no Python):**
+- [Companion project](docs/claude-project-companion.md) - paste into a Claude.ai project for interactive profile building and job scoring
+- [Scoring template](docs/claude-scoring-template.md) - lighter version, just paste a job and get a score
+
+**Setup help:**
+- [Anthropic API setup](https://ashley-sarahsep.github.io/job-alert-scorer/anthropic-setup.html) - step-by-step guide for getting your API key
 
 ---
 

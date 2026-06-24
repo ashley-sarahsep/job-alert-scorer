@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthropic (Claude) API Setup — Job Alert Scorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --rose: #C4A0A0;
+    --rose-deep: #A07878;
+    --rose-light: #DCC8C8;
+    --cream: #FAF5F0;
+    --cream-dark: #F0E6DA;
+    /* Accent palette: deep rose primary, forest/teal for frames + links. */
+    --wood: #8A4A5C;        /* deep rose (mid) - headings, buttons, circles */
+    --wood-dark: #5C2E3E;   /* deep wine-rose - emphasis, primary actions */
+    --teal-dark: #22403D;   /* deep forest - hero & code frames */
+    --teal: #3F6661;        /* teal accent - links, step labels */
+    --mustard: #C8A84E;
+    --mustard-soft: #F8F0DA;
+    --green: #5A8A65;
+    --text: #3D2E2E;
+    --text-mid: #5D4A4A;
+    --text-muted: #8D7A7A;
+    --border: #D8C8C0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--rose);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 32px auto;
+    background: var(--cream);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(60,30,30,0.12);
+  }
+
+  .inner { padding: 0 48px; }
+  @media (max-width: 600px) { .inner { padding: 0 24px; } }
+
+  /* Hero */
+  .hero {
+    background: var(--teal-dark);
+    padding: 52px 48px 44px;
+    color: var(--cream);
+  }
+  @media (max-width: 600px) { .hero { padding: 40px 24px 36px; } }
+  .hero .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--mustard);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero p { font-size: 0.92rem; color: var(--rose-light); max-width: 540px; line-height: 1.6; }
+  .hero .back-link {
+    display: inline-block; margin-top: 18px; font-size: 0.82rem;
+    color: var(--mustard); text-decoration: none; font-weight: 600;
+  }
+  .hero .back-link:hover { text-decoration: underline; }
+
+  /* Sections */
+  .section { padding: 34px 0; border-top: 1px solid var(--border); }
+  .section:first-of-type { border-top: none; padding-top: 24px; }
+  h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--wood-dark);
+    margin-bottom: 6px;
+  }
+  .lead { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px; }
+  p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 10px; }
+
+  /* Numbered steps */
+  .steps { counter-reset: s; margin-top: 8px; }
+  .step-item {
+    counter-increment: s;
+    margin-bottom: 26px;
+    padding-left: 44px;
+    position: relative;
+  }
+  .step-item::before {
+    content: counter(s);
+    position: absolute;
+    left: 0; top: 0;
+    width: 28px; height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--wood);
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .step-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+
+  ul, ol { margin: 8px 0 8px 20px; }
+  li { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 4px; }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    background: var(--cream-dark);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .code {
+    background: var(--teal-dark);
+    color: var(--rose-light);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 12px 0;
+    white-space: pre;
+  }
+  .code .dim { color: #9D8A7A; }
+
+  .callout {
+    background: var(--mustard-soft);
+    border-left: 3px solid var(--mustard);
+    padding: 14px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+  }
+  .callout strong { color: var(--wood-dark); }
+
+  a { color: var(--teal); font-weight: 600; }
+
+  /* Cost table */
+  .cost-tbl { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.85rem; }
+  .cost-tbl th {
+    text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--wood);
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+  }
+  .cost-tbl td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
+  .cost-tbl tr:last-child td { border-bottom: none; }
+  .cost-tbl .prov { font-weight: 600; color: var(--text); }
+  .cost-tbl .model { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; }
+
+  /* Footer */
+  .foot {
+    padding: 28px 48px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+  .foot a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  @media (max-width: 600px) { .foot { padding: 28px 24px; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Setup Guide</div>
+    <h1>Setting up your Anthropic (Claude) API key</h1>
+    <p>This guide walks you through every click: creating an account, adding credits, getting your API key, and connecting it to the Job Alert Scorer. Total time: about 10 minutes.</p>
+    <a href="index.html" class="back-link">← Back to Getting Started</a>
+  </div>
+
+  <div class="inner">
+
+    <div class="section">
+      <h2>What you're setting up</h2>
+      <p class="lead">The tool scores each job by sending that job's description and your candidate profile to Claude. To do that it needs an API key — a secret string tied to your own Anthropic account, billed pay-as-you-go.</p>
+      <p>You'll end up with a key that starts with <code>sk-ant-</code>, saved in a <code>.env</code> file in your private config folder. The tool reads it from there; it never lives in the public repo.</p>
+    </div>
+
+    <div class="section">
+      <h2>Step by step</h2>
+      <div class="steps">
+
+        <div class="step-item">
+          <h3>Create an Anthropic account</h3>
+          <ol>
+            <li>Go to <a href="https://console.anthropic.com">console.anthropic.com</a></li>
+            <li>Click <strong>Sign Up</strong> (or <strong>Log In</strong> if you already have an account)</li>
+            <li>You can sign up with your Google account or with an email and password</li>
+            <li>Verify your email if prompted</li>
+          </ol>
+          <div class="callout">This is a separate account from <strong>Claude.ai</strong> (the chat interface). The API <em>console</em> is where you manage your key and billing. You can use the same email for both, but they're different logins.</div>
+        </div>
+
+        <div class="step-item">
+          <h3>Add credits (pay-as-you-go)</h3>
+          <p>The API is pay-as-you-go — you load credits and they're drawn down as the tool scores jobs. There's no monthly subscription.</p>
+          <ol>
+            <li>Once logged in, click <strong>Billing</strong> in the left sidebar</li>
+            <li>Click <strong>Add Payment Method</strong> and enter a card</li>
+            <li>Click <strong>Add Credits</strong> and choose an amount</li>
+          </ol>
+          <p><strong>How much to start with:</strong> $5 is plenty. At roughly 1–2 cents per job scored, $5 covers a few hundred jobs. You can always add more later. If you're offered free trial credits for a new account, use them.</p>
+          <div class="callout"><strong>Set a spend limit.</strong> In the same billing area you can set a monthly usage limit as a safety net, so a runaway run can never cost more than you intend.</div>
+        </div>
+
+        <div class="step-item">
+          <h3>Create your API key</h3>
+          <ol>
+            <li>Click <strong>API Keys</strong> in the left sidebar</li>
+            <li>Click <strong>Create Key</strong></li>
+            <li>Give it a name you'll recognise, like <code>job-alert-scorer</code></li>
+            <li><strong>Copy the key immediately.</strong> It starts with <code>sk-ant-</code> and you'll only see it once. If you lose it, just create a new one.</li>
+          </ol>
+          <div class="callout"><strong>Treat this key like a password.</strong> Don't paste it into any public document, don't commit it to GitHub, and don't share it. The tool stores it in your private config folder, which is kept out of the repo by <code>.gitignore</code>.</div>
+        </div>
+
+        <div class="step-item">
+          <h3>Save your key</h3>
+          <p>The tool reads your key from the <code>ANTHROPIC_API_KEY</code> environment variable. The simplest way to set it is a <code>.env</code> file in the same folder as your <code>config.yaml</code>. Copy the bundled <code>.env.example</code> and fill in your key:</p>
+          <div class="code"><span class="dim"># in your private config folder, next to config.yaml</span>
+cp .env.example .env
+<span class="dim"># then edit .env so it reads:</span>
+ANTHROPIC_API_KEY=sk-ant-...</div>
+          <p>Replace <code>sk-ant-...</code> with the actual key you copied. That's it — the tool picks it up automatically on the next run.</p>
+          <p>Prefer to set it in your shell instead of a file? That works too:</p>
+          <div class="code"><span class="dim"># macOS / Linux</span>
+export ANTHROPIC_API_KEY=sk-ant-...
+
+<span class="dim"># Windows (Command Prompt)</span>
+set ANTHROPIC_API_KEY=sk-ant-...</div>
+          <div class="callout">The key is only ever read from the environment (directly, or via the <code>.env</code> file). It does <strong>not</strong> go in <code>config.yaml</code> — keep your <code>.env</code> in your private config folder, never in the repo.</div>
+        </div>
+
+        <div class="step-item">
+          <h3>Confirm it works</h3>
+          <p>Do a first scored run over a short window so any key problem surfaces immediately at almost no cost:</p>
+          <div class="code"><span class="dim"># scores only the last day's alerts — a few cents at most</span>
+python src/main.py --config ./config.yaml --since 1d --score</div>
+          <p>If the key is set correctly, the tool fetches and scores the jobs it found. If it isn't, you'll get a clear <code>ANTHROPIC_API_KEY is not set</code> message or an authentication error — in which case, check:</p>
+          <ul>
+            <li>Is the key copied in full, with no extra spaces?</li>
+            <li>Is <code>.env</code> in the same folder as the <code>config.yaml</code> you passed to <code>--config</code>?</li>
+            <li>If you used <code>export</code>/<code>set</code>, is it the same terminal session you're running the tool from?</li>
+            <li>Have you added credits? A key with no credits authenticates but fails when scoring.</li>
+          </ul>
+          <div class="callout">Want to look before you spend anything at all? Drop the <code>--score</code> flag — <code>python src/main.py --config ./config.yaml --since 7d</code> just lists the jobs it finds, with no API calls and no cost.</div>
+        </div>
+
+        <div class="step-item">
+          <h3>Choose your model</h3>
+          <p>The default model is <code>claude-sonnet-4-6</code> — the best balance of quality and cost for scoring jobs. Set it in <code>config.yaml</code>:</p>
+          <div class="code">scoring:
+  provider: anthropic
+  model: claude-sonnet-4-6     <span class="dim"># recommended — best quality-to-cost ratio</span></div>
+          <p>Other Anthropic models you could use:</p>
+          <ul>
+            <li><code>claude-haiku-4-5</code> — faster and cheaper, slightly less detailed assessments</li>
+            <li><code>claude-opus-4-8</code> — highest quality but more expensive; only worth it if you want the most thorough reasoning</li>
+          </ul>
+          <p>For most people, Sonnet is the right choice. Start there and only change if you have a specific reason.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>What it costs</h2>
+      <p class="lead">Gmail is free. You only pay for the AI scoring, and the title pre-filter keeps most jobs from ever reaching the API. List prices per million tokens, with a rough per-job estimate (each job is a small request, and with Anthropic the rubric + profile sit in the cached part of the prompt):</p>
+      <table class="cost-tbl">
+        <thead><tr><th>Model</th><th>Price (in / out per 1M)</th><th>~ Per job</th></tr></thead>
+        <tbody>
+          <tr><td class="prov">Claude Sonnet <span class="model">claude-sonnet-4-6</span></td><td>$3 / $15</td><td>~1–2 cents</td></tr>
+          <tr><td class="prov">Claude Haiku <span class="model">claude-haiku-4-5</span></td><td>$1 / $5</td><td>under a cent</td></tr>
+          <tr><td class="prov">Claude Opus <span class="model">claude-opus-4-8</span></td><td>$5 / $25</td><td>a few cents</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">A typical daily run on Sonnet is a few cents to a couple of dollars a month. Your actual cost depends on how many alerts you get and how aggressive your title filter is. Set a monthly spend limit in the console as a safety net.</p>
+    </div>
+
+    <div class="section">
+      <h2>Troubleshooting</h2>
+      <p><strong>"Invalid API key" / authentication error</strong> — make sure you copied the full key with no surrounding spaces, that <code>.env</code> sits next to your <code>config.yaml</code>, and (if you used <code>export</code>/<code>set</code>) that it's the same terminal session. If in doubt, create a fresh key in the console.</p>
+      <p><strong>"Insufficient credits"</strong> — add credits in the console's billing area, and check your usage in case you've hit a spend limit you set.</p>
+      <p><strong>Rate limited</strong> — the tool already pauses between scoring calls, but a very large batch can still hit Anthropic's limits. Wait a few minutes and run again; scoring is cached, so it picks up where it left off without re-charging you for jobs already done.</p>
+      <p><strong>Key security.</strong> If you ever accidentally commit a key to a public repo, delete it in the console immediately and create a new one. (Anthropic may also email you if it detects a key published publicly.)</p>
+    </div>
+
+    <div class="section" style="text-align:center;">
+      <a href="index.html" style="display:inline-block; background:var(--wood-dark); color:var(--cream); padding:11px 26px; border-radius:8px; text-decoration:none; font-size:0.88rem;">← Back to Getting Started</a>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <p>Built by <a href="https://stepinto-ashleysoffice.com">Ashley Sarah</a> &middot; <a href="https://github.com/ashley-sarahsep/job-alert-scorer">View on GitHub</a><br>
+    Part of the Job Alert Scorer project.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
