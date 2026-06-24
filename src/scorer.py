@@ -243,11 +243,16 @@ def score_jobs(jobs, config, provider):
         try:
             result = score_one(provider, candidate_profile, job, description,
                                max_tokens=max_tokens, temperature=temperature)
+        except KeyboardInterrupt:
+            # Save what we have so an interrupted run keeps its progress.
+            save_cache(cache_path, cache)
+            raise
         except Exception as exc:  # noqa: BLE001 - one failure shouldn't kill the run
             result = {"_error": str(exc)}
         job["score_result"] = result
         if "_error" not in result:
             cache[jid] = result
+            save_cache(cache_path, cache)  # persist each score as it lands
             print(f"           -> {result['score']}/10  {result['recommendation']}", flush=True)
         else:
             print(f"           -> could not score ({str(result['_error'])[:60]})", flush=True)
