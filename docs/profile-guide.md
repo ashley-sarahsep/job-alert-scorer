@@ -1,16 +1,5 @@
 # How to Write Your Candidate Profile
 
-> **Where the file is:** start from the blank template at
-> **`config/example/candidate_profile.template.md`** (and the optional
-> `candidate_addendum.template.md` beside it). Copy it, fill it in, and save your
-> version as **`candidate_profile.md`** in your config folder. There's also a
-> complete filled-in example in that same `config/example/` folder you can read
-> for reference.
->
-> **Don't want to start from a blank page?** Use the
-> [copy-paste profile-builder prompt](profile-builder-prompt.md): paste it plus
-> your resume into Claude or ChatGPT and it drafts the whole thing in this format.
-
 > **About the file format:** The template files end in `.md` (Markdown). They're plain text files. You can open and edit them in any text editor — Notepad on Windows, TextEdit on Mac, Google Docs, or even Word. You don't need any special software.
 
 Your candidate profile is the single most important file in this tool. Every job gets scored against it. A vague profile produces vague scores. A specific, honest profile produces scores you can actually trust.
