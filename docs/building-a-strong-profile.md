@@ -143,6 +143,8 @@ First, when you describe your skills and experience, use the language your targe
 
 Second, when the scorer flags a job as a strong fit (7+), it includes an ATS keywords section that tells you which terms from that specific posting you should make sure appear in your resume when you apply. Some you'll already cover. Others you may have the experience for but haven't used that exact phrasing. This isn't about adding skills you don't have. It's about describing the skills you DO have in the employer's vocabulary instead of your own.
 
+> **Heads-up:** This ATS keywords section is a newly added feature and still settling in — treat its suggestions as a helpful starting point to sanity-check, not a finished list. If it ever looks off, the core scoring is unaffected.
+
 **Exercise:** Look at 3-5 job postings for your target roles. What words and phrases keep appearing? Those are your industry's ATS keywords. Make sure your profile and resume use them naturally.
 
 ---
