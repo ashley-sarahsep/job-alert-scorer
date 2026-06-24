@@ -215,25 +215,19 @@ board you use a lot, a dedicated parser is more reliable - see
 
 ---
 
-## Supported AI providers
+## AI provider
 
-Set `scoring.provider` and `scoring.model` in `config.yaml`, and put the
-matching key in your `.env`.
+This release uses **Anthropic (Claude)**. Set the model in `config.yaml` and put
+your key in `.env`:
 
-| Provider | `provider` | Example model | Key (env) | Setup | Notes |
-|---|---|---|---|---|---|
-| Anthropic | `anthropic` | `claude-sonnet-4-6` | `ANTHROPIC_API_KEY` | (default) | Tested; prompt-caches the profile for low cost |
-| OpenAI | `openai` | `gpt-4o-mini` | `OPENAI_API_KEY` | `pip install openai` | Best-effort, verify on your account |
-| Google | `google` | `gemini-1.5-flash` | `GOOGLE_API_KEY` | `pip install google-generativeai` | Best-effort |
-| Groq | `groq` | `llama-3.1-70b-versatile` | `GROQ_API_KEY` | `pip install groq` | Best-effort |
+| Provider | `provider` | Example model | Key (env) |
+|---|---|---|---|
+| Anthropic | `anthropic` | `claude-sonnet-4-6` | `ANTHROPIC_API_KEY` |
 
-Anthropic is the default and the only provider exercised against a live API in
-this project. The others follow each SDK's documented shape but should be
-verified before you rely on them - see **[docs/PROVIDERS.md](docs/PROVIDERS.md)**
-for a per-provider review and the red flags to watch for. Adding a provider is a
-single file - see Contributing.
-
----
+Scoring sits behind a small provider interface, so other providers can be added.
+Experimental **OpenAI / Google / Groq** implementations (unverified) live on the
+`experimental-providers` branch - see **[docs/PROVIDERS.md](docs/PROVIDERS.md)**
+for the per-provider review and red flags.
 
 ## Cost management
 
@@ -333,6 +327,7 @@ docs/
   claude-scoring-template.md   No-code Claude project: scoring only
   profile-guide-visual.html    Visual profile guide (GitHub Pages)
   anthropic-setup.html         Step-by-step Anthropic API setup (GitHub Pages)
+  terminal-basics.html         Terminal primer for non-developers (GitHub Pages)
   PROVIDERS.md                 AI provider notes + review
   index.html                   Illustrated getting-started page (GitHub Pages)
 tests/               Offline tests (no network or API keys needed)
@@ -356,6 +351,7 @@ tests/               Offline tests (no network or API keys needed)
 
 **Setup help:**
 - [Anthropic API setup](https://ashley-sarahsep.github.io/job-alert-scorer/anthropic-setup.html) - step-by-step guide for getting your API key
+- [Using the terminal](https://ashley-sarahsep.github.io/job-alert-scorer/terminal-basics.html) - a 2-minute primer for non-developers, with a copy-paste cheat sheet for running the tool
 
 ---
 
