@@ -189,8 +189,8 @@ before any AI cost. Two lists in `config.yaml`:
 - **`keep_title_keywords`** - but keep (score) it if it also contains one of
   these. **Keep overrides skip.**
 
-So with `director` in skip and `implementation` in keep, *"Director of
-Implementation"* is scored while *"Director, Data Science"* is skipped. Matching
+So with `director` in skip and `nursing` in keep, *"Director of
+Nursing"* is scored while *"Director, Data Science"* is skipped. Matching
 is case-insensitive substring matching, so prefer specific multi-word phrases
 (`software engineer`, not `engineer`). Skipped jobs are still listed at the
 bottom of the output (with the keyword that caught them), so you can spot a

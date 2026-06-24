@@ -30,7 +30,7 @@ Everything else (your experience, strengths, target roles, compensation, locatio
 2-3 sentences about who you are. Think of it as the version of yourself you'd describe to a recruiter in an elevator. Keep it factual: years of experience, what kind of work you do, what you're looking for next. The scorer uses this to quickly understand your professional identity.
 
 ### Career Timeline
-Your work history in reverse chronological order. For each role, focus on what you owned, the scale you operated at, and what you accomplished. "Managed CRM" is less useful than "Administered HubSpot for a 200-person sales org, built all reporting dashboards, and trained 15 new users." The scorer matches specific experience against job requirements, so specificity matters.
+Your work history in reverse chronological order. For each role, focus on what you owned, the scale you operated at, and what you accomplished. "Did patient care" is less useful than "Charge nurse on a 32-bed med-surg unit, supervised 6 RNs per shift, and led the rollout of a new fall-prevention protocol." The scorer matches specific experience against job requirements, so specificity matters.
 
 Recent and relevant roles deserve more detail. Older or less relevant roles can be a line or two.
 
@@ -65,7 +65,7 @@ Where you are, what you're open to, and what's a dealbreaker. Be specific about 
 Straightforward. List what you have, note anything in progress. If you're self-taught in areas that typically require formal training, say so. Some job postings list degrees as "required" vs "preferred" and the scorer handles these differently.
 
 ### Tools and Systems
-Group by proficiency level. "Admin-level HubSpot" is a very different signal than "familiar with HubSpot." If you're actively learning a tool, list it as learning. The scorer uses this to check tool requirements in job postings.
+Group by proficiency level. "Epic super-user" is a very different signal than "familiar with Epic." If you're actively learning a tool, list it as learning. The scorer uses this to check tool requirements in job postings.
 
 ---
 
