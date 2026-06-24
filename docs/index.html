@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<base target="_blank">
 <title>Job Alert Scorer — Getting Started</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
   :root {
     --rose: #C4A0A0;
@@ -29,13 +28,20 @@
     --green-soft: #E8F2EA;
     --text: #3D2E2E;
     --text-mid: #5D4A4A;
-    --text-muted: #8D7A7A;
+    --text-muted: #6E5C5C;
     --red-soft: #F2DEDE;
     --red: #A85454;
     --border: #D8C8C0;
+    /* Brand additions: warm gold (primary action) + wine hero, from Ashley's office. */
+    --gold: #E6C24C;
+    --gold-hi: #F0D469;
+    --hero: #4E2733;
+    --mono: 'Space Mono', 'Courier New', monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: 'DM Sans', -apple-system, sans-serif;
@@ -49,35 +55,69 @@
     max-width: 780px;
     margin: 32px auto;
     background: var(--cream);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(60,30,30,0.12);
+    border-radius: 10px;
+    border: 1px solid var(--wood-dark);
+    box-shadow: 0 10px 44px rgba(60,30,30,0.22);
   }
 
-  .inner { padding: 0 48px; }
+  /* Window chrome — reads like a doc open on the office computer */
+  .titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 14px;
+    background: var(--rose-light);
+    border-bottom: 1px solid var(--rose-deep);
+    border-radius: 9px 9px 0 0;
+    font-family: var(--mono);
+  }
+  .titlebar .tb-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--wood-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .titlebar .tb-controls { display: flex; gap: 6px; flex: 0 0 auto; }
+  .titlebar .tb-dot {
+    width: 17px; height: 17px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; line-height: 1;
+    color: var(--wood-dark);
+    background: var(--cream);
+    border: 1px solid var(--rose-deep);
+    border-radius: 3px;
+  }
+
+  .inner { padding: 0 48px; counter-reset: sec; }
   @media (max-width: 600px) { .inner { padding: 0 24px; } }
 
   /* Hero */
   .hero {
-    background: var(--teal-dark);
-    padding: 52px 48px 44px;
+    background: var(--hero);
+    padding: 48px 48px 44px;
     color: var(--cream);
+    border-radius: 0;
   }
   @media (max-width: 600px) { .hero { padding: 40px 24px 36px; } }
   .hero .eyebrow {
+    font-family: var(--mono);
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--mustard);
+    color: var(--gold);
     margin-bottom: 14px;
   }
   .hero h1 {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 12px;
+    font-family: var(--mono);
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
   }
   .hero p {
     font-size: 0.92rem;
@@ -85,6 +125,55 @@
     max-width: 520px;
     line-height: 1.6;
   }
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+    max-width: 560px;
+  }
+  .hero-chips span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--rose-light);
+    border: 1px solid rgba(220,200,200,0.32);
+    padding: 5px 12px;
+    border-radius: 4px;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .hero-btn {
+    display: inline-block;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+  }
+  .hero-btn.primary {
+    background: var(--gold);
+    color: #3A1C26;
+    border: 1px solid #B8962E;
+    box-shadow: 0 3px 0 #B8962E;
+  }
+  .hero-btn.primary:hover { background: var(--gold-hi); }
+  .hero-btn.primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #B8962E; }
+  .hero-btn.ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(220,200,200,0.55);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+  }
+  .hero-btn.ghost:hover { background: rgba(255,255,255,0.08); }
+  .hero-btn.ghost:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.18); }
 
   /* Toggle */
   .audience-toggle {
@@ -97,10 +186,10 @@
     width: fit-content;
   }
   .aud-btn {
-    padding: 10px 24px;
-    font-family: inherit;
-    font-size: 0.82rem;
-    font-weight: 600;
+    padding: 10px 22px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
     border: none;
     cursor: pointer;
     background: var(--cream);
@@ -118,15 +207,60 @@
   body.mode-simple .simple-only { display: block; }
   .both { display: block; }
 
+  /* Sticky in-page nav */
+  .pagenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 4px;
+    padding: 10px 48px;
+    background: rgba(250,245,240,0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .pagenav::-webkit-scrollbar { display: none; }
+  .pagenav a {
+    flex: 0 0 auto;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .pagenav a:hover { background: var(--cream-dark); color: var(--wood-dark); }
+  .pagenav a.active { background: var(--wood-dark); color: var(--cream); }
+  @media (max-width: 600px) { .pagenav { padding: 8px 16px; } }
+
   /* Sections */
-  .section { padding: 36px 0; border-top: 1px solid var(--border); }
+  .section { padding: 36px 0; border-top: 1px solid var(--border); scroll-margin-top: 64px; }
   .section:first-of-type { border-top: none; padding-top: 24px; }
   h2 {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-family: var(--mono);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--wood-dark);
     margin-bottom: 6px;
+  }
+  .section { counter-increment: sec; }
+  .section > h2::before {
+    content: counter(sec, decimal-leading-zero);
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--teal);
+    margin-bottom: 8px;
   }
   .lead { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px; }
 
@@ -150,7 +284,8 @@
   .flow-step:not(:last-child) { border-right: none; }
   .flow-step .fl-num {
     display: block;
-    font-size: 0.65rem;
+    font-family: var(--mono);
+    font-size: 0.64rem;
     font-weight: 700;
     color: var(--teal);
     text-transform: uppercase;
@@ -194,19 +329,22 @@
     display: inline-block;
     background: var(--wood-dark);
     color: var(--cream);
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: background 0.15s;
+    box-shadow: 0 3px 0 rgba(58,28,38,0.45);
+    transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
   }
   .nocode-link:hover { background: var(--wood); }
+  .nocode-link:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(58,28,38,0.45); }
 
   /* Checklist */
   .checklist {
-    background: var(--mustard-soft);
-    border-left: 3px solid var(--mustard);
+    background: var(--green-soft);
+    border-left: 3px solid var(--green);
     border-radius: 0 8px 8px 0;
     padding: 18px 22px;
     margin-bottom: 24px;
@@ -259,8 +397,10 @@
   .step-item p { font-size: 0.88rem; color: var(--text-mid); }
   .time-est {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
     color: var(--wood);
     background: var(--cream-dark);
     padding: 2px 8px;
@@ -271,7 +411,7 @@
   /* Code */
   .code {
     background: var(--teal-dark);
-    color: var(--rose-light);
+    color: #ECE3D8;
     padding: 16px 20px;
     border-radius: 6px;
     font-family: 'Courier New', monospace;
@@ -280,7 +420,7 @@
     overflow-x: auto;
     margin: 10px 0;
   }
-  .code .dim { color: #9D8A7A; }
+  .code .dim { color: #D3DDD2; }
 
   code {
     font-family: 'Courier New', monospace;
@@ -293,13 +433,17 @@
 
   /* Callout */
   .callout {
-    background: var(--mustard-soft);
-    border-left: 3px solid var(--mustard);
+    background: var(--green-soft);
+    border-left: 3px solid var(--green);
     padding: 14px 20px;
     border-radius: 0 6px 6px 0;
     margin: 14px 0;
     font-size: 0.85rem;
     color: var(--text-mid);
+  }
+  .callout.warn {
+    background: var(--mustard-soft);
+    border-left-color: var(--mustard);
   }
   .callout strong { color: var(--wood-dark); }
 
@@ -324,14 +468,14 @@
   .dot.low { background: var(--rose-deep); }
   .impact-row h4 { font-size: 0.88rem; font-weight: 600; }
   .impact-row .tag {
-    font-size: 0.65rem; font-weight: 700;
+    font-size: 0.68rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.04em;
     margin-left: 6px;
   }
-  .tag.crit { color: var(--red); }
-  .tag.high { color: var(--green); }
-  .tag.med { color: var(--mustard); }
-  .tag.low { color: var(--rose-deep); }
+  .tag.crit { color: #934646; }
+  .tag.high { color: #3E6B48; }
+  .tag.med { color: #8F7220; }
+  .tag.low { color: #825858; }
   .impact-row p { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
 
   /* Score blocks */
@@ -347,16 +491,16 @@
   .sc.s2 { background: #EEF5EE; }
   .sc.s3 { background: var(--mustard-soft); }
   .sc.s4 { background: var(--red-soft); }
-  .sc .num { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.5rem; }
+  .sc .num { font-family: var(--mono); font-weight: 700; font-size: 1.5rem; }
   .sc.s1 .num { color: var(--green); }
   .sc.s2 .num { color: #4A7A54; }
   .sc.s3 .num { color: var(--wood); }
   .sc.s4 .num { color: var(--red); }
-  .sc .lbl { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
-  .sc.s1 .lbl { color: var(--green); }
+  .sc .lbl { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .sc.s1 .lbl { color: #3E6B48; }
   .sc.s2 .lbl { color: #4A7A54; }
   .sc.s3 .lbl { color: var(--wood); }
-  .sc.s4 .lbl { color: var(--red); }
+  .sc.s4 .lbl { color: #934646; }
   .sc p { font-size: 0.78rem; color: var(--text-mid); margin-top: 4px; }
 
   /* Example output */
@@ -369,7 +513,7 @@
   .example-top {
     padding: 10px 18px;
     background: var(--teal-dark);
-    color: var(--rose-light);
+    color: #ECE3D8;
     font-size: 0.72rem;
     font-family: 'Courier New', monospace;
   }
@@ -380,7 +524,7 @@
     margin: 18px 0 4px;
   }
   .example-inner h4:first-child { margin-top: 0; }
-  .example-inner .big-score { font-family: 'DM Serif Display', Georgia, serif; font-size: 2rem; color: var(--green); }
+  .example-inner .big-score { font-family: var(--mono); font-weight: 700; font-size: 1.8rem; color: var(--green); }
   .example-inner .apply-tag {
     display: inline-block; background: var(--green-soft); color: var(--green);
     padding: 3px 12px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;
@@ -426,30 +570,48 @@
   .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .cta-btn {
     display: inline-block;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
+    padding: 12px 26px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: all 0.15s;
-    font-family: inherit;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
     cursor: pointer;
-    border: none;
   }
-  .cta-primary { background: var(--wood-dark); color: var(--cream); }
-  .cta-primary:hover { background: var(--wood); }
-  .cta-secondary { background: var(--cream-dark); color: var(--wood-dark); border: 1px solid var(--border); }
-  .cta-secondary:hover { background: var(--border); }
+  .cta-primary { background: var(--gold); color: #3A1C26; border: 1px solid #B8962E; box-shadow: 0 3px 0 #B8962E; }
+  .cta-primary:hover { background: var(--gold-hi); }
+  .cta-primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #B8962E; }
+  .cta-secondary { background: var(--cream); color: var(--wood-dark); border: 1px solid var(--wood-dark); box-shadow: 0 3px 0 var(--border); }
+  .cta-secondary:hover { background: var(--cream-dark); }
+  .cta-secondary:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--border); }
 
   /* Footer */
   .foot {
-    padding: 28px 48px;
+    padding: 30px 48px;
     text-align: center;
     color: var(--text-muted);
-    font-size: 0.78rem;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    line-height: 1.7;
     border-top: 1px solid var(--border);
+    border-radius: 0 0 9px 9px;
   }
-  .foot a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .foot a { color: var(--teal); text-decoration: none; font-weight: 700; }
+  .office-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 9px 18px;
+    background: var(--cream-dark);
+    border: 1px solid var(--wood-dark);
+    border-radius: 5px;
+    box-shadow: 0 3px 0 var(--border);
+    color: var(--wood-dark) !important;
+    font-weight: 700;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+  }
+  .office-link:hover { background: var(--rose-light); }
+  .office-link:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--border); }
   @media (max-width: 600px) { .foot { padding: 28px 24px; } }
 
   /* ---- Print / Save-as-PDF ---------------------------------------------- */
@@ -473,6 +635,7 @@
     /* Show all content; hide the interactive-only chrome. */
     .tech-only, .simple-only { display: block !important; }
     .audience-toggle, .aud-label { display: none !important; }
+    .pagenav { display: none !important; }
     .faq-a { display: block !important; }
     .faq-q .ar { display: none !important; }
 
@@ -493,25 +656,51 @@
 
 <div class="page">
 
+  <div class="titlebar">
+    <span class="tb-title">getting-started.md — job-alert-scorer</span>
+    <span class="tb-controls" aria-hidden="true">
+      <span class="tb-dot">–</span>
+      <span class="tb-dot">▢</span>
+      <span class="tb-dot">✕</span>
+    </span>
+  </div>
+
   <div class="hero">
     <div class="eyebrow">Open Source Tool</div>
     <h1>Stop reading every job posting yourself.</h1>
-    <p>This tool reads your job alert emails, pulls the full descriptions, and scores each one against your profile. You review what matters. The tool filters out what doesn't.</p>
-    <p style="margin-top:14px; font-weight:600; color:var(--cream);">Whatever field you're in — nursing, teaching, marketing, design, the trades, finance, operations, engineering, anything — it works the same way. You don't have to be technical or in a particular industry. You describe the role <em>you</em> want, and it scores every job against that.</p>
-    <p style="font-size:0.8rem; color:var(--rose-light); margin-top:12px; opacity:0.8;">It runs on your computer and reads your own email. It doesn't apply for you or make decisions. To score a job it sends that job description and your profile to the AI provider you choose — nothing is stored anywhere you don't control. You make the call.</p>
+    <p>This tool reads your job alert emails, pulls the full descriptions, and scores each one against your profile — in any field, whether or not you're technical. You review what matters; it filters out what doesn't.</p>
+    <div class="hero-chips">
+      <span>Free &amp; open source</span>
+      <span>Runs on your computer</span>
+      <span>Your data stays yours</span>
+      <span>You decide what to apply to</span>
+    </div>
+    <div class="hero-cta">
+      <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer" class="hero-btn primary">Get it on GitHub →</a>
+      <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="hero-btn ghost">Try the no-code version</a>
+    </div>
   </div>
+
+  <nav class="pagenav" aria-label="On this page">
+    <a href="#how">How it works</a>
+    <a href="#setup">Setup</a>
+    <a href="#profile">Profile</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#cost">Costs</a>
+    <a href="#faq">FAQ</a>
+  </nav>
 
   <div class="inner">
 
     <!-- Toggle -->
     <div class="audience-toggle">
-      <button class="aud-btn active" onclick="setMode('simple', this)">Show me simply</button>
-      <button class="aud-btn" onclick="setMode('tech', this)">I'm technical</button>
+      <button class="aud-btn active" aria-pressed="true" onclick="setMode('simple', this)">Show me simply</button>
+      <button class="aud-btn" aria-pressed="false" onclick="setMode('tech', this)">I'm technical</button>
     </div>
     <p class="aud-label both">Choose how you'd like things explained.</p>
 
     <!-- How it works -->
-    <div class="section">
+    <div class="section" id="how">
       <h2>How it works</h2>
       <p class="lead simple-only">You tell it what you're looking for. It checks your email, finds jobs worth your time, and tells you which ones actually match. You set it up once; it runs whenever you want after that.</p>
       <p class="lead tech-only">Automated pipeline: Gmail API reads alerts, title pre-filter, web scraping for full JDs from company career pages, AI API scores against your candidate profile, outputs ranked CSV + markdown.</p>
@@ -559,13 +748,13 @@
           <li>Paste any job description into a conversation and get it scored</li>
         </ol>
         <p>You paste job descriptions in manually instead of having emails read automatically, but the scoring works the same way. The free tier of Claude or ChatGPT is enough to score a handful of jobs per day. There are two versions: a <strong>companion</strong> that also helps you build and refine your profile (and spots transferable skills you might undersell), and a <strong>scoring-only</strong> template.</p>
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-project-companion.md" class="nocode-link">Get the companion project</a>
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="nocode-link" style="background:var(--wood);margin-left:8px;">Scoring-only template</a>
+        <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-project-companion.md" class="nocode-link">Get the companion project</a>
+        <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="nocode-link" style="background:var(--wood);margin-left:8px;">Scoring-only template</a>
       </div>
     </div>
 
     <!-- Setup -->
-    <div class="section">
+    <div class="section" id="setup">
       <h2>Setting it up</h2>
 
       <!-- Simple setup -->
@@ -595,19 +784,19 @@
           <div class="step-item">
             <h3>Describe yourself <span class="time-est">~10 min</span></h3>
             <p>Fill in the template at <code>config/example/candidate_profile.template.md</code> — a plain text file with sections and prompts, like a questionnaire you can open in Notepad, TextEdit, Google Docs, or any text editor. Save your filled-in copy as <code>candidate_profile.md</code>; this is the file the tool scores every job against. (A complete fictional example sits in the same folder for reference.)</p>
-            <div class="callout"><strong>Shortcut — don't start from a blank page:</strong> grab the <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/profile-builder-prompt.md">copy-paste profile-builder prompt</a>, paste it plus your resume into Claude or ChatGPT, and it drafts the whole profile in the right format. Then fix anything it got wrong.</div>
+            <div class="callout"><strong>Shortcut — don't start from a blank page:</strong> grab the <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/profile-builder-prompt.md">copy-paste profile-builder prompt</a>, paste it plus your resume into Claude or ChatGPT, and it drafts the whole profile in the right format. Then fix anything it got wrong.</div>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">There's also an optional addendum file for when your search evolves. You can update your targeting without rewriting your whole profile.</p>
           </div>
           <div class="step-item">
             <h3>Choose your settings <span class="time-est">~5 min</span></h3>
             <p>Open the settings file (it's a plain text file with comments explaining every option). Pick which AI service to use, and list which job alert emails the tool should read (LinkedIn, Indeed, etc.).</p>
-            <div class="callout">First time with the Anthropic API? Follow the <a href="anthropic-setup.html">step-by-step setup guide →</a> to create your key and add a few dollars of credit.</div>
+            <div class="callout">First time with the Anthropic API? Follow the <a target="_blank" rel="noopener" href="anthropic-setup.html">step-by-step setup guide →</a> to create your key and add a few dollars of credit.</div>
           </div>
           <div class="step-item">
             <h3>Run it <span class="time-est">~1 min</span></h3>
             <p>Open Terminal (Mac: search "Terminal" in Spotlight) or Command Prompt (Windows: search "cmd"). Navigate to the folder and type the run command — whenever you want to check for new roles, with no schedule to set up. The tool processes your new alerts and creates a results file you can open in any text editor or browser.</p>
-            <p>Never opened a terminal before? The <a href="terminal-basics.html">2-minute terminal guide →</a> walks through the exact lines to type, with a copy-paste cheat sheet for next time.</p>
-            <div class="callout"><strong>Be patient while it runs.</strong> It prints a line for each job as it works — fetching, then <code>scoring 3/12 ...</code>. Scoring talks to the AI and takes a few seconds per job, so a batch can take a minute or two. As long as new lines keep appearing, it's working — don't close the window. And if you <em>do</em> have to stop partway, it saves each score as it lands: run it again and it skips everything it already scored, so you never wait — or pay — for the same job twice.</div>
+            <p>Never opened a terminal before? The <a target="_blank" rel="noopener" href="terminal-basics.html">2-minute terminal guide →</a> walks through the exact lines to type, with a copy-paste cheat sheet for next time.</p>
+            <div class="callout warn"><strong>Be patient while it runs.</strong> It prints a line for each job as it works — fetching, then <code>scoring 3/12 ...</code>. Scoring talks to the AI and takes a few seconds per job, so a batch can take a minute or two. As long as new lines keep appearing, it's working — don't close the window. And if you <em>do</em> have to stop partway, it saves each score as it lands: run it again and it skips everything it already scored, so you never wait — or pay — for the same job twice.</div>
           </div>
         </div>
 
@@ -646,7 +835,7 @@ pip install -r requirements.txt</div>
           </div>
           <div class="step-item">
             <h3>Config</h3>
-            <p><code>cp config.example.yaml config.yaml</code> &middot; first time with the Anthropic API? See the <a href="anthropic-setup.html">step-by-step setup guide →</a></p>
+            <p><code>cp config.example.yaml config.yaml</code> &middot; first time with the Anthropic API? See the <a target="_blank" rel="noopener" href="anthropic-setup.html">step-by-step setup guide →</a></p>
             <div class="code"><span class="dim"># config.yaml — key sections</span>
 sources:
   - name: LinkedIn
@@ -683,7 +872,7 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
     </div>
 
     <!-- Profile -->
-    <div class="section both">
+    <div class="section both" id="profile">
       <h2>Your profile drives every score</h2>
       <p class="lead">Each section affects scoring differently. The ones marked "critical" matter most.</p>
 
@@ -726,7 +915,7 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       </div>
 
       <div class="callout" style="margin-top:16px;"><strong>Your search will evolve.</strong> Use the optional addendum file to update your targeting or adjust scoring rules without rewriting your whole profile. The addendum overrides the main profile where they conflict.</div>
-      <p style="font-size:0.85rem; color:var(--text-mid); margin-top:16px;">Want help building your profile? Read the <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">deep guide →</a> &nbsp;·&nbsp; Prefer visuals? See the <a href="profile-guide-visual.html">visual guide →</a></p>
+      <p style="font-size:0.85rem; color:var(--text-mid); margin-top:16px;">Want help building your profile? Read the <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">deep guide →</a> &nbsp;·&nbsp; Prefer visuals? See the <a target="_blank" rel="noopener" href="profile-guide-visual.html">visual guide →</a></p>
     </div>
 
     <!-- Scoring -->
@@ -793,7 +982,7 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
     </div>
 
     <!-- Privacy -->
-    <div class="section both">
+    <div class="section both" id="privacy">
       <h2>Your data stays yours</h2>
       <p class="lead">There's no server of ours in the middle. The tool runs on your computer and reads your own email.</p>
 
@@ -823,7 +1012,7 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
     </div>
 
     <!-- Cost -->
-    <div class="section both">
+    <div class="section both" id="cost">
       <h2>What it costs</h2>
       <p class="lead simple-only">Reading your emails is free. You pay a small amount for the AI scoring. The title filter keeps costs low by skipping obviously wrong roles before they reach the AI.</p>
       <p class="lead tech-only">Gmail API is free. Costs are provider API calls. Title pre-filter eliminates ~60-80% of jobs before they hit the API.</p>
@@ -841,10 +1030,8 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
     </div>
 
     <!-- FAQ -->
-    <div class="section both">
+    <div class="section both" id="faq">
       <h2>Questions you probably have</h2>
-
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is my data sent anywhere?<span class="ar">›</span></button><div class="faq-a">Emails are read on your computer, not on a server. Job descriptions and your profile are sent to whichever AI provider you chose for scoring. Nothing is stored anywhere you don't control.</div></div>
 
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if it's filtering out jobs I'd actually want?<span class="ar">›</span></button><div class="faq-a">Every run lists what got skipped at the bottom. Check it once a week. If you see something good that was filtered, add a "keep" keyword to your settings.</div></div>
 
@@ -870,16 +1057,17 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       <h2>Ready to try it?</h2>
       <p>Two ways to get started, depending on how technical you are.</p>
       <div class="cta-buttons">
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer" class="cta-btn cta-primary">Get the tool on GitHub</a>
-        <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="cta-btn cta-secondary">Use the no-code Claude template</a>
+        <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer" class="cta-btn cta-primary">Get the tool on GitHub</a>
+        <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/claude-scoring-template.md" class="cta-btn cta-secondary">Use the no-code Claude template</a>
       </div>
-      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:18px;"><a href="profile-guide-visual.html">Visual profile guide</a> &nbsp;·&nbsp; <a href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">Deep profile guide</a> &nbsp;·&nbsp; <a href="anthropic-setup.html">Anthropic setup guide</a></p>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:18px;"><a target="_blank" rel="noopener" href="profile-guide-visual.html">Visual profile guide</a> &nbsp;·&nbsp; <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer/blob/main/docs/building-a-strong-profile.md">Deep profile guide</a> &nbsp;·&nbsp; <a target="_blank" rel="noopener" href="anthropic-setup.html">Anthropic setup guide</a></p>
     </div>
 
   </div>
 
   <div class="foot">
-    <p>Built by <a href="https://stepinto-ashleysoffice.com">Ashley Sarah</a> &middot; <a href="https://github.com/ashley-sarahsep/job-alert-scorer">View on GitHub</a><br>
+    <a class="office-link" target="_blank" rel="noopener" href="https://stepinto-ashleysoffice.com">↩ back to Ashley's office</a>
+    <p>Built by <a target="_blank" rel="noopener" href="https://stepinto-ashleysoffice.com">Ashley Sarah</a> &middot; <a target="_blank" rel="noopener" href="https://github.com/ashley-sarahsep/job-alert-scorer">View on GitHub</a><br>
     Open source. Runs on your computer. Your data stays yours.</p>
   </div>
 
@@ -887,17 +1075,44 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
 
 <script>
 function setMode(mode, btn) {
-  document.body.className = 'mode-' + mode;
-  document.querySelectorAll('.aud-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.body.classList.remove('mode-simple', 'mode-tech');
+  document.body.classList.add('mode-' + mode);
+  document.querySelectorAll('.aud-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
+  if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); }
+  try { localStorage.setItem('jas-mode', mode); } catch (e) {}
 }
 function toggleFaq(btn) {
   const a = btn.nextElementSibling;
-  const open = btn.classList.contains('open');
-  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
-  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-  if (!open) { btn.classList.add('open'); a.classList.add('open'); }
+  const open = btn.classList.toggle('open');
+  a.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
+// Highlight the nav link for the section currently in view.
+(function () {
+  const links = [...document.querySelectorAll('.pagenav a')];
+  const byId = {};
+  links.forEach(l => { byId[l.getAttribute('href').slice(1)] = l; });
+  const obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = byId[e.target.id];
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  document.querySelectorAll('.section[id]').forEach(s => obs.observe(s));
+})();
+// Restore the reader's last-chosen mode (defaults to simple).
+(function () {
+  let saved = 'simple';
+  try { saved = localStorage.getItem('jas-mode') || 'simple'; } catch (e) {}
+  const btn = document.querySelector(saved === 'tech' ? '.aud-btn:last-child' : '.aud-btn:first-child');
+  setMode(saved, btn);
+})();
 </script>
 
 </body>
