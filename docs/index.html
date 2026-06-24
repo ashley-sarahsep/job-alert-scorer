@@ -13,9 +13,13 @@
     --rose-light: #DCC8C8;
     --cream: #FAF5F0;
     --cream-dark: #F0E6DA;
-    --wood: #8B6B3D;
-    --wood-dark: #5C4528;
-    --wood-light: #B8945E;
+    /* Accent palette: deep rose primary, forest/teal for frames + links. */
+    --wood: #8A4A5C;        /* deep rose (mid) - headings, buttons, circles */
+    --wood-dark: #5C2E3E;   /* deep wine-rose - emphasis, primary actions */
+    --wood-light: #B07A88;  /* dusty rose-mauve */
+    --teal-dark: #22403D;   /* deep forest - hero & code frames */
+    --teal: #3F6661;        /* teal accent - links, step labels */
+    --teal-light: #6E928C;  /* muted teal */
     --pink: #C87D93;
     --pink-soft: #F2E4E8;
     --mustard: #C8A84E;
@@ -54,7 +58,7 @@
 
   /* Hero */
   .hero {
-    background: var(--wood-dark);
+    background: var(--teal-dark);
     padding: 52px 48px 44px;
     color: var(--cream);
   }
@@ -147,7 +151,7 @@
     display: block;
     font-size: 0.65rem;
     font-weight: 700;
-    color: var(--wood);
+    color: var(--teal);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 4px;
@@ -265,7 +269,7 @@
 
   /* Code */
   .code {
-    background: var(--wood-dark);
+    background: var(--teal-dark);
     color: var(--rose-light);
     padding: 16px 20px;
     border-radius: 6px;
@@ -363,7 +367,7 @@
   }
   .example-top {
     padding: 10px 18px;
-    background: var(--wood-dark);
+    background: var(--teal-dark);
     color: var(--rose-light);
     font-size: 0.72rem;
     font-family: 'Courier New', monospace;
@@ -404,7 +408,7 @@
     background: none; border: none; width: 100%; text-align: left;
     font-family: inherit; color: var(--text); line-height: 1.4;
   }
-  .faq-q:hover { color: var(--wood); }
+  .faq-q:hover { color: var(--teal); }
   .faq-q .ar { transition: transform 0.2s; font-size: 0.7rem; color: var(--text-muted); min-width: 14px; }
   .faq-q.open .ar { transform: rotate(90deg); }
   .faq-a { padding: 0 0 13px; color: var(--text-mid); font-size: 0.85rem; display: none; line-height: 1.6; }
@@ -444,7 +448,7 @@
     font-size: 0.78rem;
     border-top: 1px solid var(--border);
   }
-  .foot a { color: var(--wood); text-decoration: none; font-weight: 600; }
+  .foot a { color: var(--teal); text-decoration: none; font-weight: 600; }
   @media (max-width: 600px) { .foot { padding: 28px 24px; } }
 </style>
 </head>
@@ -563,7 +567,7 @@
           <div class="step-item">
             <h3>Run it <span class="time-est">~1 min</span></h3>
             <p>Open Terminal (Mac: search "Terminal" in Spotlight) or Command Prompt (Windows: search "cmd"). Navigate to the folder and type the run command — whenever you want to check for new roles, with no schedule to set up. The tool processes your new alerts and creates a results file you can open in any text editor or browser.</p>
-            <div class="callout"><strong>Be patient while it runs.</strong> It prints a line for each job as it works — fetching, then <code>scoring 3/12 ...</code>. Scoring talks to the AI and takes a few seconds per job, so a batch can take a minute or two. As long as new lines keep appearing, it's working — don't close the window.</div>
+            <div class="callout"><strong>Be patient while it runs.</strong> It prints a line for each job as it works — fetching, then <code>scoring 3/12 ...</code>. Scoring talks to the AI and takes a few seconds per job, so a batch can take a minute or two. As long as new lines keep appearing, it's working — don't close the window. And if you <em>do</em> have to stop partway, it saves each score as it lands: run it again and it skips everything it already scored, so you never wait — or pay — for the same job twice.</div>
           </div>
         </div>
 
@@ -697,28 +701,57 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
     </div>
     <div class="section both">
       <h2>What you actually see</h2>
-      <p class="lead">After each run, you get a file like this. Best matches at the top.</p>
-      <p class="simple-only" style="font-size:0.82rem; color:var(--text-muted); margin:-16px 0 20px;">Results are saved as a text file you can open in any browser, text editor, or notes app. You also get a spreadsheet-friendly version if you prefer that.</p>
+      <p class="lead">After each run you get a ranked summary emailed to you — plus matching CSV and markdown files. Jobs are grouped best-first, so the roles worth your time are right at the top. Here's the emailed version:</p>
+      <p class="simple-only" style="font-size:0.82rem; color:var(--text-muted); margin:-16px 0 20px;">The same summary is also saved as files you can open in any browser, notes app, or spreadsheet.</p>
 
       <div class="example">
-        <div class="example-top">results / summary_2026-06-18.md</div>
-        <div class="example-inner">
-          <h4>Role</h4>
-          <p><strong>Customer Onboarding Manager</strong> at Acme SaaS (Series B, 85 people)</p>
-          <h4>Score</h4>
-          <span class="big-score">8</span><span class="apply-tag">Apply</span>
-          <h4>Why</h4>
-          <p>Strong alignment with onboarding programme design. Role involves building a structured process for mid-market clients from scratch. Growth-stage company, first hire for this function.</p>
-          <h4>What matches</h4>
-          <ul>
-            <li>Onboarding is your #1 target role</li>
-            <li>HubSpot required — you have admin-level</li>
-            <li>"First hire" matches your build-from-scratch signal</li>
-          </ul>
-          <h4>Gaps</h4>
-          <ul><li>Asks for 5+ years dedicated onboarding; you have 3 with broader scope (soft gap)</li></ul>
-          <h4>Details</h4>
-          <p><strong>Pay:</strong> $105-125K USD — in range &nbsp; <strong>Location:</strong> Remote-US — works &nbsp; <strong>Blockers:</strong> None</p>
+        <div class="example-top">✉&nbsp;&nbsp;Job Alert Summary &middot; 4 scored &middot; sent to your inbox</div>
+        <div class="example-inner" style="background:#fdf8f8;">
+          <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--rose-deep); border-bottom:2px solid var(--rose-deep); padding-bottom:5px; margin-bottom:14px;">Strong Fits (7+)</div>
+
+          <div style="border:1px solid var(--border); border-radius:8px; background:#faf3f3; padding:16px 18px;">
+            <div style="font-size:1rem; font-weight:600; color:var(--text);">Customer Onboarding Manager <span style="color:var(--green); font-weight:700;">[8/10 &middot; Apply]</span></div>
+            <div style="color:var(--text-muted); font-size:0.8rem; margin:4px 0 10px;">Acme SaaS (Series B, 85 people) &middot; Remote-US &middot; LinkedIn</div>
+            <div style="color:var(--text-mid); font-size:0.86rem; margin-bottom:10px;">Strong alignment with onboarding programme design. The role is a first hire building a structured process for mid-market clients from scratch — squarely your #1 target.</div>
+            <div style="font-size:0.84rem; color:var(--text-mid); margin-bottom:6px;"><strong>Alignments:</strong> onboarding is your top target &middot; "first hire" matches your build-from-scratch signal &middot; HubSpot admin-level required</div>
+            <div style="font-size:0.84rem; color:var(--text-mid); margin-bottom:10px;"><strong>Signals:</strong> growth-stage (85 people), cross-functional emphasis</div>
+            <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;"><strong>Gaps:</strong> asks 5+ yrs dedicated onboarding; you have 3 with broader scope (soft)</div>
+            <div style="background:#f3e3e3; border-left:3px solid var(--rose-deep); padding:8px 11px; font-size:0.82rem; color:var(--text-mid);"><strong>Pay:</strong> $105–125K — in range &nbsp;&middot;&nbsp; <strong>Location:</strong> Remote-US — works &nbsp;&middot;&nbsp; <strong>Blockers:</strong> none</div>
+            <div style="margin-top:12px;"><span style="display:inline-block; background:var(--rose-deep); color:#fff; padding:6px 14px; border-radius:6px; font-size:0.78rem; font-weight:600;">View posting →</span></div>
+          </div>
+
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:16px;">Below Strong Fits, the email continues with <strong>Worth a Shot</strong> (transferable stretches), <strong>Worth Considering</strong> (5–6), and <strong>Passes</strong> — and the roles the title filter skipped are listed at the very bottom, each with the keyword that caught it, so you can spot any exception.</p>
+        </div>
+      </div>
+      <p style="font-size:0.74rem; color:var(--text-muted); margin-top:10px; font-style:italic;">Illustration of the emailed layout with sample data — a real run uses your own alerts and profile.</p>
+    </div>
+
+    <!-- Privacy -->
+    <div class="section both">
+      <h2>Your data stays yours</h2>
+      <p class="lead">There's no server of ours in the middle. The tool runs on your computer and reads your own email.</p>
+
+      <div class="impact-list">
+        <div class="impact-row">
+          <div class="dot high"></div>
+          <div>
+            <h4>Your email is read locally</h4>
+            <p>Alerts are read on your machine through Google's official Gmail API. Nothing is forwarded to us — there's no "us" in the loop, and the tool only ever reads your mail and sends you the summary. It never deletes or changes anything.</p>
+          </div>
+        </div>
+        <div class="impact-row">
+          <div class="dot med"></div>
+          <div>
+            <h4>Only the job and your profile go to the AI</h4>
+            <p>To score a role, its description and your candidate profile are sent to the AI provider you chose (e.g. Anthropic) — and only for scoring. That's the only data that ever leaves your computer.</p>
+          </div>
+        </div>
+        <div class="impact-row">
+          <div class="dot low"></div>
+          <div>
+            <h4>Everything else stays on disk</h4>
+            <p>Your profile, API key, Gmail credentials, login token, caches, and results live in your own folder and are kept out of version control by a <code>.gitignore</code> — so even if you put the project under git, your personal files are never committed by accident.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -756,6 +789,14 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can someone else set it up and I just run it?<span class="ar">›</span></button><div class="faq-a">Yes. If a tech-savvy friend handles the initial setup (downloading, Gmail connection, settings), you only need to write your own profile and type one command to run it. After setup, it's the same command every time.</div></div>
 
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I only use Indeed, not LinkedIn. Does it work?<span class="ar">›</span></button><div class="faq-a">Yes. <strong>LinkedIn and Indeed have dedicated parsers</strong>, and you can use just one. For any other board (Wellfound, Glassdoor, ZipRecruiter, and so on), add it with the <strong>generic</strong> parser — best-effort, with an AI fallback if you've set an Anthropic key. For a board you rely on heavily, a dedicated parser is more reliable; that's a great contribution (see CONTRIBUTING).</div></div>
+
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if I have to stop it partway through?<span class="ar">›</span></button><div class="faq-a">No harm done. It saves each job's score the moment that job is done, so if you close the window or lose your connection mid-run, the work so far is kept. Run it again and it skips everything it already scored and carries on — and you're never charged twice for the same job.</div></div>
+
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">It says it found no jobs. What's wrong?<span class="ar">›</span></button><div class="faq-a">Usually one of three things: you don't have job-alert emails arriving yet (set them up on LinkedIn or Indeed first), the tool is only looking at <em>new</em> alerts since your last run (use the "re-check recent alerts" option to look further back), or the sender address in your settings doesn't match the alerts you actually receive. Each run prints how many alert emails it matched — if that number is zero, the issue is the email search, not the scoring.</div></div>
+
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Google warns the app is "unverified." Is that safe?<span class="ar">›</span></button><div class="faq-a">Yes. That warning shows because <em>you</em> created the app in your own Google account and it hasn't been through Google's public review — it's your app, reading your mail, on your computer. Choose "Advanced → continue to (your app)" to proceed. The only permissions it requests are to read your alerts and email you the summary.</div></div>
+
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Where do my results get saved?<span class="ar">›</span></button><div class="faq-a">In a <code>results</code> folder next to your settings file: a markdown summary you can open in any browser or notes app, and a CSV you can open in a spreadsheet. If you used the email option, that same ranked summary also lands in your inbox.</div></div>
     </div>
 
     <!-- CTA -->
