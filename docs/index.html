@@ -451,6 +451,42 @@
   }
   .foot a { color: var(--teal); text-decoration: none; font-weight: 600; }
   @media (max-width: 600px) { .foot { padding: 28px 24px; } }
+
+  /* ---- Print / Save-as-PDF ---------------------------------------------- */
+  /* Open the page in Chrome and choose Print -> Save as PDF for a clean,
+     complete handout: both the "simply" and "technical" sections are shown,
+     every FAQ is expanded, the interactive toggle is hidden, and major
+     sections start on a fresh page. */
+  @media print {
+    @page { margin: 14mm; }
+    html, body { background: #fff !important; }
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .page {
+      max-width: 100% !important; margin: 0 !important;
+      border-radius: 0 !important; box-shadow: none !important; overflow: visible !important;
+    }
+    .inner { padding: 0 !important; }
+
+    /* Show all content; hide the interactive-only chrome. */
+    .tech-only, .simple-only { display: block !important; }
+    .audience-toggle, .aud-label { display: none !important; }
+    .faq-a { display: block !important; }
+    .faq-q .ar { display: none !important; }
+
+    /* Page-break control. */
+    h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+    .section { break-before: page; page-break-before: always; }
+    .hero + .inner .section:first-of-type,
+    .section:first-of-type { break-before: avoid; page-break-before: avoid; }
+    .step-item, .faq-item, .callout, .code, .flow, .flow-step, .example,
+    .cost-tbl, .impact-row, .nocode-box, .cta-section, .scores, tr, li {
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    p, li { orphans: 3; widows: 3; }
+  }
 </style>
 </head>
 <body class="mode-simple">
