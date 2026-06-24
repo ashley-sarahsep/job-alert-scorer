@@ -5,6 +5,11 @@ one for fit against your candidate profile using an AI model, and get a ranked
 summary by email (and as CSV / markdown files). It's a **triage tool** - it
 helps you decide what to apply to; it does not write applications.
 
+It's **field-agnostic**: you don't have to be technical or work in any particular
+industry. Whatever you're searching for - nursing, teaching, marketing, design,
+the trades, finance, operations, engineering, anything - you describe the role
+**you** want and it scores every job against that.
+
 It separates the **public tool** (this repo) from your **private profile and
 credentials** (a separate folder you point it at), so nothing personal lives in
 the code.
