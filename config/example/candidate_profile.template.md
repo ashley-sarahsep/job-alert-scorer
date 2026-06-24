@@ -31,7 +31,7 @@
 
 ## Key Strengths
 
-[List 5-8 things you're genuinely strong at. Be specific. "Project management" is vague. "Building onboarding programmes from scratch that reduced client ramp time by half" is useful. The scorer matches these against job requirements.]
+[List 5-8 things you're genuinely strong at. Be specific. "Good with people" is vague. "Precepting new graduate nurses from nervous to independent" or "Closing the monthly books for a 40-person company" is useful. The scorer matches these against job requirements.]
 
 - [Strength 1]
 - [Strength 2]
@@ -45,11 +45,11 @@
 
 [List the roles you're targeting, most-wanted first. Be specific about the type of role, not just the title. The scorer uses this to determine how well a job aligns with what you actually want.]
 
-1. [Role type 1, e.g. "Customer Onboarding / Implementation Manager"]
-2. [Role type 2]
-3. [Role type 3]
-4. [Role type 4]
-5. [Role type 5]
+1. [Role type 1, e.g. "Clinical Nurse Educator" or "Middle School Math Teacher"]
+2. [Role type 2, e.g. "Brand Marketing Manager"]
+3. [Role type 3, e.g. "Staff Accountant"]
+4. [Role type 4, e.g. "Journeyman Electrician"]
+5. [Role type 5, e.g. "UX Designer"]
 
 [Optional: note any role types you've deprioritised and why, so the scorer doesn't overweight them.]
 
@@ -59,11 +59,11 @@
 
 [These are dealbreakers. If a role requires any of these, the score is capped at 4 regardless of how well the rest matches. Be honest about what you can't do or won't do.]
 
-- [e.g. "Requires SQL proficiency, which I'm currently learning, not proficient in"]
-- [e.g. "Requires hands-on software engineering or coding"]
-- [e.g. "Director/VP level at companies with 200+ employees, no formal team management experience"]
-- [e.g. "Requires deep domain expertise in healthcare or fintech"]
-- [e.g. "Requires a specific degree I don't have (e.g. MBA required, not preferred)"]
+- [e.g. "Requires an advanced-practice license (NP/CRNA) I don't hold"]
+- [e.g. "Requires a teaching certification or grade level I'm not endorsed for"]
+- [e.g. "Requires a CPA license (I'm not yet certified)"]
+- [e.g. "Requires deep domain expertise in a specialty I lack (ICU, tax, M&A)"]
+- [e.g. "Requires a specific degree or credential I don't have (e.g. MSN required, not preferred)"]
 
 ---
 
@@ -71,11 +71,11 @@
 
 [These are things that make a role especially worth pursuing. If the scorer sees these in a job posting, the score gets a lift. Think about the kinds of roles and environments where you thrive.]
 
-- [e.g. "'Build from scratch' or 'first hire' language"]
-- [e.g. "Growth-stage companies (50-200 people)"]
-- [e.g. "AI-forward companies deploying AI to non-technical users"]
-- [e.g. "Remote-first or async culture"]
-- [e.g. "Cross-functional coordination emphasis"]
+- [e.g. "Preceptor or nurse-residency program language"]
+- [e.g. "Magnet-designated hospital or teaching-school environment"]
+- [e.g. "Mentorship, training, or staff-development emphasis"]
+- [e.g. "Mission-driven or community-focused employer"]
+- [e.g. "Hands-on, build-from-scratch, or first-in-role language"]
 
 ---
 
@@ -83,9 +83,9 @@
 
 [Real gaps that are NOT dealbreakers. The scorer notes these but doesn't penalise heavily. Being upfront helps the tool give you accurate scores rather than inflated ones.]
 
-- [e.g. "Single employer history"]
-- [e.g. "No formal certifications, self-taught on all systems"]
-- [e.g. "Limited enterprise experience, mostly mid-market clients"]
+- [e.g. "Single setting or single employer history"]
+- [e.g. "No formal management title (lead/charge experience, no direct reports)"]
+- [e.g. "Limited experience in one specialty or client segment"]
 
 ---
 
@@ -121,6 +121,6 @@
 
 [List tools and systems you're proficient with. Group by category if helpful. Be honest about depth: "admin-level" vs "familiar" vs "learning" matters for scoring.]
 
-- **Deep proficiency:** [e.g. "HubSpot (admin-level), Jira, Google Workspace"]
-- **Working knowledge:** [e.g. "Salesforce, Asana, Notion"]
-- **Learning:** [e.g. "SQL (in progress via Google certification)"]
+- **Deep proficiency:** [e.g. "Epic EHR (super-user), or QuickBooks, or Adobe Creative Suite"]
+- **Working knowledge:** [e.g. "Google Classroom, or Excel, or AutoCAD"]
+- **Learning:** [e.g. "Power BI (in progress), or a second EHR / new toolset"]

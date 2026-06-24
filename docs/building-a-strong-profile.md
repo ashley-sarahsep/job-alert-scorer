@@ -2,7 +2,7 @@
 
 > The template tells you what sections to fill in. This guide teaches you how to think about each one deeply enough that the scorer (and you) can see what you actually bring to a role.
 
-A shallow profile produces shallow scores. "Managed client accounts" tells a scorer almost nothing. "Owned the full post-sale relationship for 30 enterprise accounts, built the onboarding process from scratch, maintained near-zero churn over four years, and was the person clients called when something was actually wrong" tells it everything.
+A shallow profile produces shallow scores. "Taught middle school science" tells a scorer almost nothing. "Designed and taught a hands-on 7th-grade science curriculum for five classes of 30 students, rebuilt the labs around inquiry projects when the old materials stopped landing, mentored two first-year teachers, and was the person colleagues came to when a lesson wasn't working" tells it everything.
 
 The difference isn't writing skill. It's self-knowledge. Most people haven't been asked to articulate what they actually do at the capability level. This guide helps you get there.
 
@@ -14,9 +14,9 @@ Job titles are labels someone else gave you. They rarely describe the real work.
 
 Sit with each role you've held and ask yourself: if you had to explain what you actually spent your time doing to someone who'd never heard of your company or your industry, what would you say?
 
-Not "I was a Customer Success Manager." That's a title. Try: "I was the person who made sure clients got value from the product after they bought it. I ran their onboarding, tracked whether they were actually using the features that mattered, stepped in when things went sideways, and figured out how to keep them renewing. I also built most of the templates and processes the team used because they didn't exist when I started."
+Not "I was a high school teacher." That's a title. Try: "I was the person responsible for getting 150 students a year to actually understand the material, not just pass the test. I planned every lesson, watched closely for who was falling behind and adjusted on the fly, handled the parents and the behavior issues, and figured out how to keep teenagers engaged with stuff they didn't think they cared about. I also built most of the unit plans and assessments my department used because the old ones weren't working."
 
-That second version contains at least five distinct capabilities: onboarding design, usage analytics, issue resolution, retention strategy, and process/documentation creation. Each one maps to different roles. A scorer can work with that. It can't work with "Customer Success Manager."
+That second version contains at least five distinct capabilities: curriculum design, real-time assessment and adaptation, stakeholder communication, motivation and engagement, and content/material creation. Each one maps to different roles. A scorer can work with that. It can't work with "high school teacher."
 
 **Exercise:** For each role you've held, write 3-5 sentences about what you actually did day to day, in plain language, as if you're telling a friend. Don't use your job title or industry jargon. Then look at what you wrote and pull out the capabilities.
 
@@ -30,12 +30,12 @@ Here's how to translate:
 
 | What you might write | What it actually demonstrates |
 |---|---|
-| "Managed the CRM" | System administration, data integrity, workflow design, user training, reporting |
-| "Ran weekly team meetings" | Facilitation, agenda design, cross-functional coordination, accountability tracking |
-| "Handled client complaints" | Stakeholder management, de-escalation, problem diagnosis, communicating under pressure |
-| "Created training materials" | Instructional design, curriculum architecture, content creation for multiple audiences |
+| "Charted patient care" | Clinical documentation, attention to detail under pressure, regulatory compliance, continuity of care |
+| "Ran the job site" | Crew coordination, scheduling, safety compliance, problem-solving with incomplete information, vendor management |
+| "Built lesson plans" | Instructional design, curriculum architecture, content creation for multiple audiences |
+| "Closed the monthly books" | Financial controls, reconciliation, deadline management, accuracy under audit-level scrutiny |
+| "Handled customer complaints" | Stakeholder management, de-escalation, problem diagnosis, communicating under pressure |
 | "Was the go-to person for questions" | Institutional knowledge management, informal leadership, interpersonal translation |
-| "Set up reports for clients" | Data analysis, business intelligence, translating metrics into decisions |
 | "Wore many hats" | Cross-functional operations, prioritisation under resource constraints, building from scratch |
 
 The right column is what belongs in your profile. The left column is what most people write instead.
@@ -73,9 +73,9 @@ For each target role, ask yourself:
 2. Where have I done that same kind of work, even if it was called something different?
 3. What's the capability connection between my experience and their need?
 
-Example: You're targeting Implementation Manager roles. You've never held that title. But you spent three years onboarding enterprise clients onto a SaaS platform: scoping their needs, configuring accounts, training their team, managing timelines, escalating blockers, and documenting everything for handoff. That IS implementation work. Your profile should say so explicitly, not leave it to the scorer to connect the dots.
+Example: You're targeting Operations Coordinator roles. You've never held that title. But you spent three years as a retail store manager: building the staff schedule every week, managing inventory and ordering, coordinating with vendors and the regional office, hitting tight deadlines on resets and promotions, and keeping the floor running when someone called out. That IS operations work. Your profile should say so explicitly, not leave it to the scorer to connect the dots.
 
-Another example: You're targeting Chief of Staff roles. You've been an operations lead at a small company where you managed the founder's priorities, ran staff meetings, tracked cross-functional commitments, and handled whatever didn't fit on anyone else's plate. That IS Chief of Staff work. Name it.
+Another example: You're targeting Instructional Designer or Corporate Trainer roles. You've been a classroom teacher who designed curriculum from scratch, broke complex material into learnable steps, built assessments to check what actually stuck, and trained newer teachers on your methods. That IS instructional design work. Name it.
 
 **Exercise:** For each target role, write 2-3 sentences explaining the connection between your experience and what that role requires. If you struggle to make the connection, it might be a weaker target than you thought. That's useful information too.
 
@@ -87,7 +87,7 @@ There are three kinds of gaps. They affect scoring differently, and mixing them 
 
 **Hard blockers** are things you genuinely cannot do right now. If a job requires SQL proficiency and you've never written a query, that's a hard blocker. If a job requires managing a team of 10 and you've never had a direct report, that's a hard blocker. These cap your score at 4. Be honest about them. Listing something as a hard blocker doesn't mean you'll never learn it. It means you can't demonstrate it in an interview next week.
 
-**Soft gaps** are things you haven't done but could learn, or things you've done at a smaller scale. "I've only worked at companies under 50 people" is a soft gap, not a hard blocker. "I haven't used Salesforce but I've administered HubSpot at an advanced level" is a soft gap. The scorer notes these without penalising heavily.
+**Soft gaps** are things you haven't done but could learn, or things you've done at a smaller scale. "I've only worked in small clinics, never a large hospital" is a soft gap, not a hard blocker. "I haven't used QuickBooks but I've run full-cycle bookkeeping in Xero at an advanced level" is a soft gap. The scorer notes these without penalising heavily.
 
 **Things that aren't gaps at all** are the ones people worry about unnecessarily. Single employer history isn't a gap if you grew significantly within it. A non-traditional degree isn't a gap if your work demonstrates the skills. A small-company background isn't a gap if you were doing the work of three roles. Don't list these as gaps. Explain them as context in your Career Timeline or Summary.
 
@@ -103,18 +103,18 @@ Think about moments in your career that reveal how you work, not just what you w
 
 - The time you noticed something was about to go wrong and fixed it before anyone else realised
 - The process you built that people still use after you left
-- The client situation that was going sideways until you stepped in
+- The shift, project, or case that was going sideways until you stepped in
 - The project where you figured out a completely new tool or system on your own because nobody else was going to
 - The handoff that went smoothly because of how you documented everything
 - The moment a colleague came to you for help and you realised you'd become the person people trust to think things through
 
-These stories do three things for your profile. First, they give the scorer richer context. "Built onboarding processes" is a capability. "Built an onboarding process after watching three new clients struggle with the same confusion in their first week, then tested it with the next five clients and cut ramp time in half" is a story that shows initiative, pattern recognition, iteration, and measurable impact. The scorer can match that to a much wider range of roles.
+These stories do three things for your profile. First, they give the scorer richer context. "Built intake procedures" is a capability. "Built a new patient-intake procedure after watching three families get the same confusing handoff in their first week, then piloted it with the next ward and cut wait times in half" is a story that shows initiative, pattern recognition, iteration, and measurable impact. The scorer can match that to a much wider range of roles.
 
 Second, they surface capabilities you might not list otherwise. The story about noticing something before it went wrong reveals anticipatory thinking. The story about becoming the person everyone comes to reveals interpersonal trust and informal leadership. You might not think to list those as strengths, but the story makes them visible.
 
 Third, they become material you'll use later. Cover letters need a specific example, not a capability list. Interview answers need a concrete story, not a vague claim. Building your story bank now means you're not scrambling to think of examples under pressure.
 
-**Where to put stories in your profile:** Add 2-4 short stories to your Career Timeline entries or your Key Strengths section. A story can be two sentences. "When our sales team turned over completely in six months, I was the person who made sure no client relationships or institutional knowledge were lost. I'd built the documentation and handoff processes specifically for this scenario." That's enough.
+**Where to put stories in your profile:** Add 2-4 short stories to your Career Timeline entries or your Key Strengths section. A story can be two sentences. "When half our nursing staff turned over in six months, I was the person who made sure no patient histories or unit knowledge were lost. I'd built the charting and handoff procedures specifically for this scenario." That's enough.
 
 **Exercise:** Write down 5-7 moments from your career that you're proud of, that were hard, or that changed how your team worked. Don't filter for impressiveness. Then look at each one and ask: what capability does this story reveal? Add the strongest ones to your profile.
 
@@ -125,11 +125,11 @@ Third, they become material you'll use later. Cover letters need a specific exam
 If you include metrics (and you should where they exist), make sure they're accurate. Rough is fine. Fabricated isn't.
 
 Good metrics to include:
-- Scale you operated at (number of clients, team size, revenue touched, users supported)
-- Outcomes you can verify (reduced onboarding time from X to Y, maintained near-zero churn over N years, grew the function from N to N people)
-- Volume (processed N applications, managed N accounts, created N training guides)
+- Scale you operated at (patients per shift, students taught, budget managed, square footage of the build)
+- Outcomes you can verify (raised pass rates from X to Y, brought a project in under budget by N, cut average wait time from X to Y, grew the team from N to N people)
+- Volume (processed N invoices, supervised N crew members, wrote N care plans)
 
-If you're not sure of the exact number, give a defensible range or say "approximately." If you're tempted to round up significantly, don't. A scorer treats "managed approximately 25 accounts" and "managed 30+ accounts" the same way. But if you say 30 in your profile and 25 in an interview, you've damaged your credibility for nothing.
+If you're not sure of the exact number, give a defensible range or say "approximately." If you're tempted to round up significantly, don't. A scorer treats "taught approximately 120 students a year" and "taught 150+ students a year" the same way. But if you say 150 in your profile and 120 in an interview, you've damaged your credibility for nothing.
 
 **Exercise:** Go through every number in your profile and ask: "If someone asked me to verify this, could I?" If not, adjust it or remove it.
 
@@ -160,7 +160,7 @@ Weak: "I'm interested in growth-stage companies."
 Strong: "I joined a company at 8 people and helped build it to 18. The ambiguity and pace of that stage is where I'm most effective."
 
 Weak: "I like building from scratch."
-Strong: "Every operational process my team uses was built by me from nothing. That's the work I find most satisfying, and the work I'm measurably best at."
+Strong: "Every intake form, care checklist, and handoff procedure my unit uses was built by me from nothing. That's the work I find most satisfying, and the work I'm measurably best at."
 
 The scorer uses these to identify jobs where you'd genuinely perform well, not just jobs that sound appealing. Ground them in evidence.
 
