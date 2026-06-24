@@ -1020,13 +1020,23 @@ python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</
       <table class="cost-tbl">
         <thead><tr><th>Provider</th><th>Per Job</th><th>~20/Day, Monthly</th></tr></thead>
         <tbody>
-          <tr><td class="prov">Claude Sonnet <span class="model tech-only">claude-sonnet-4-6</span></td><td>~1-2 cents</td><td>~$6-12</td></tr>
-          <tr><td class="prov">GPT-4o-mini <span class="model tech-only">gpt-4o-mini</span></td><td>~0.1-0.3 cents</td><td>~$1-2</td></tr>
-          <tr><td class="prov">Gemini Flash <span class="model tech-only">gemini-1.5-flash</span></td><td>~0.1-0.2 cents</td><td>~$1-2</td></tr>
-          <tr><td class="prov">Groq <span class="model tech-only">llama-3.1-70b</span></td><td>~0.1 cents</td><td>~$0.60</td></tr>
+          <tr><td class="prov">Claude Sonnet <span class="model tech-only">claude-sonnet-4-6</span> <span class="tag high">✓ Tested</span></td><td>~1-2 cents</td><td>~$6-12</td></tr>
+          <tr><td class="prov">GPT-4o-mini <span class="model tech-only">gpt-4o-mini</span> <span class="tag low">experimental</span></td><td>~0.1-0.3 cents</td><td>~$1-2</td></tr>
+          <tr><td class="prov">Gemini Flash <span class="model tech-only">gemini-2.0-flash</span> <span class="tag low">experimental</span></td><td>~0.1-0.2 cents</td><td>~$1-2</td></tr>
+          <tr><td class="prov">Groq <span class="model tech-only">llama-3.3-70b</span> <span class="tag low">experimental</span></td><td>~0.1 cents</td><td>~$0.60</td></tr>
         </tbody>
       </table>
-      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:10px;">This release ships and tests <strong>Anthropic (Claude)</strong>. The other three are optional and live on the <code>experimental-providers</code> branch (unverified) — the numbers above are list-price estimates for when you wire them up.</p>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:10px;"><strong>Only Anthropic (Claude) is built and tested today</strong> — start there for reliable results. The other three live on the <code>experimental-providers</code> branch (unverified); the numbers are list-price estimates for if you wire them up.</p>
+
+      <div class="callout"><strong>Cheaper or free routes worth exploring (not built yet):</strong>
+        <ul style="margin:8px 0 0 18px; padding:0;">
+          <li><strong>DeepSeek</strong> — an OpenAI-compatible API that runs a fraction of a cent per job; one of the cheapest hosted options going.</li>
+          <li><strong>Run a model on your own computer (genuinely free)</strong> — tools like <em>Ollama</em> or <em>LM Studio</em> run open models (Llama, Qwen, Mistral) locally. No per-job cost, and the job text never leaves your machine — the most private setup.</li>
+          <li><strong>Free API tiers</strong> — Google Gemini (via AI Studio) and Groq both have free tiers whose rate limits can be enough for a daily run.</li>
+          <li><strong>OpenRouter</strong> — one key, many models (some free), handy for trying several without separate signups.</li>
+        </ul>
+        <p style="margin:10px 0 0;">None of these are tested yet — they'd plug into the same provider interface Claude uses, so they're good candidates to experiment with (or contribute). Cheaper and local models usually trade away some scoring quality and consistency, so spot-check a few results before trusting them.</p>
+      </div>
     </div>
 
     <!-- FAQ -->
