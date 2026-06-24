@@ -234,6 +234,24 @@ Experimental **OpenAI / Google / Groq** implementations (unverified) live on the
 `experimental-providers` branch - see **[docs/PROVIDERS.md](docs/PROVIDERS.md)**
 for the per-provider review and red flags.
 
+**Cheaper or free routes worth exploring (not built or tested yet).** The same
+provider interface makes these good candidates to experiment with - or to
+contribute:
+
+- **DeepSeek** - an OpenAI-compatible API that runs a fraction of a cent per job;
+  one of the cheapest hosted options.
+- **Run a model locally (genuinely free)** - tools like **Ollama** or **LM Studio**
+  run open models (Llama, Qwen, Mistral) on your own machine. No per-job cost, and
+  the job text never leaves your computer - the most private setup.
+- **Free API tiers** - Google **Gemini** (via AI Studio) and **Groq** both offer
+  free tiers whose rate limits can be enough for a daily run.
+- **OpenRouter** - one key, many models (some free), handy for trying several
+  without separate signups.
+
+Cheaper and local models usually trade away some scoring quality and consistency,
+so spot-check a few results before trusting them. Only Anthropic is tested today;
+start there for reliable scores.
+
 ## Cost management
 
 - **The title filter is the biggest saver** - it drops obvious non-fits before
