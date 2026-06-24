@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Using the Terminal — Job Alert Scorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --rose: #C4A0A0;
+    --rose-deep: #A07878;
+    --rose-light: #DCC8C8;
+    --cream: #FAF5F0;
+    --cream-dark: #F0E6DA;
+    --wood: #8A4A5C;
+    --wood-dark: #5C2E3E;
+    --teal-dark: #22403D;
+    --teal: #3F6661;
+    --mustard: #C8A84E;
+    --mustard-soft: #F8F0DA;
+    --green: #5A8A65;
+    --text: #3D2E2E;
+    --text-mid: #5D4A4A;
+    --text-muted: #8D7A7A;
+    --border: #D8C8C0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--rose);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 32px auto;
+    background: var(--cream);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(60,30,30,0.12);
+  }
+
+  .inner { padding: 0 48px; }
+  @media (max-width: 600px) { .inner { padding: 0 24px; } }
+
+  .hero {
+    background: var(--teal-dark);
+    padding: 52px 48px 44px;
+    color: var(--cream);
+  }
+  @media (max-width: 600px) { .hero { padding: 40px 24px 36px; } }
+  .hero .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--mustard);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero p { font-size: 0.92rem; color: var(--rose-light); max-width: 540px; line-height: 1.6; }
+  .hero .back-link {
+    display: inline-block; margin-top: 18px; font-size: 0.82rem;
+    color: var(--mustard); text-decoration: none; font-weight: 600;
+  }
+  .hero .back-link:hover { text-decoration: underline; }
+
+  .section { padding: 34px 0; border-top: 1px solid var(--border); }
+  .section:first-of-type { border-top: none; padding-top: 24px; }
+  h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--wood-dark);
+    margin-bottom: 6px;
+  }
+  .lead { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px; }
+  p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 10px; }
+
+  .os-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--teal); margin: 14px 0 2px;
+  }
+
+  .steps { counter-reset: s; margin-top: 8px; }
+  .step-item {
+    counter-increment: s;
+    margin-bottom: 26px;
+    padding-left: 44px;
+    position: relative;
+  }
+  .step-item::before {
+    content: counter(s);
+    position: absolute;
+    left: 0; top: 0;
+    width: 28px; height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--wood);
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .step-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+
+  ul, ol { margin: 8px 0 8px 20px; }
+  li { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 4px; }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    background: var(--cream-dark);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .code {
+    background: var(--teal-dark);
+    color: var(--rose-light);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 12px 0;
+    white-space: pre;
+  }
+  .code .dim { color: #9D8A7A; }
+
+  .callout {
+    background: var(--mustard-soft);
+    border-left: 3px solid var(--mustard);
+    padding: 14px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+  }
+  .callout strong { color: var(--wood-dark); }
+
+  a { color: var(--teal); font-weight: 600; }
+
+  .foot {
+    padding: 28px 48px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+  .foot a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  @media (max-width: 600px) { .foot { padding: 28px 24px; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Quick Guide</div>
+    <h1>Using the Terminal (you've got this)</h1>
+    <p>If you've never typed a command before, the Terminal looks intimidating. It isn't. To run this tool you only ever need a couple of lines — this page is the whole routine, so you can come back and run it any time without re-reading the setup.</p>
+    <a href="index.html" class="back-link">← Back to Getting Started</a>
+  </div>
+
+  <div class="inner">
+
+    <div class="section">
+      <h2>What the Terminal actually is</h2>
+      <p class="lead">It's just a place where you type an instruction and press Enter, instead of clicking buttons.</p>
+      <p>That's the whole idea. A window where you type a line, hit Enter, and the computer does the thing. You can't break your computer by running the commands on this page, and nothing happens until you press Enter — so there's room to be careful. If a line ever looks wrong, just delete it and start again.</p>
+      <p>You'll usually hear it called the <strong>Terminal</strong> on a Mac and the <strong>Command Prompt</strong> on Windows. Same idea, slightly different name.</p>
+    </div>
+
+    <div class="section">
+      <h2>Opening it</h2>
+
+      <p class="os-label">On a Mac</p>
+      <p>Press <code>Cmd</code> + <code>Space</code> to open Spotlight search, type <strong>Terminal</strong>, and press Enter. A small window opens with a blinking cursor. That's it.</p>
+
+      <p class="os-label">On Windows</p>
+      <p>Click the Start menu, type <strong>cmd</strong>, and press Enter (or click "Command Prompt"). A black window opens with a blinking cursor.</p>
+
+      <div class="callout">
+        <strong>The blinking cursor means it's ready.</strong> It's waiting for you to type a line and press Enter. Nothing is happening until you do.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>The only two ideas you need</h2>
+      <p>Everything you do here is one of two things:</p>
+      <ol>
+        <li><strong>Tell it which folder you're working in</strong> — using a command called <code>cd</code> (short for "change directory," i.e. change folder).</li>
+        <li><strong>Type a command and press Enter</strong> — to actually run the tool.</li>
+      </ol>
+      <p>That's genuinely it. The next section is the exact routine.</p>
+    </div>
+
+    <div class="section">
+      <h2>Running the scorer, start to finish</h2>
+      <p class="lead">This is the routine you'll repeat whenever you want to check for new jobs. Open the Terminal, then do these three things in order.</p>
+
+      <div class="steps">
+
+        <div class="step-item">
+          <h3>Go to the tool's folder</h3>
+          <p>Type <code>cd</code>, then a space, then the path to the folder you unzipped. Don't know the path? <strong>You don't have to type it.</strong> Type <code>cd</code> and a space, then drag the folder from Finder (Mac) or File Explorer (Windows) straight into the Terminal window — it fills in the path for you. Then press Enter.</p>
+          <div class="code">cd <span class="dim">(drag your job-alert-scorer folder here, then press Enter)</span></div>
+        </div>
+
+        <div class="step-item">
+          <h3>Turn the tool on (activate its environment)</h3>
+          <p>During setup, the tool was given its own little sandbox so it doesn't interfere with anything else on your computer. You switch it on with one line — different on Mac vs Windows:</p>
+          <p class="os-label">On a Mac</p>
+          <div class="code">source .venv/bin/activate</div>
+          <p class="os-label">On Windows</p>
+          <div class="code">.venv\Scripts\activate</div>
+          <p>You'll know it worked when <code>(.venv)</code> appears at the start of the line. (If you get a "no such file" error here, the sandbox wasn't created during setup — see the first hiccup below.)</p>
+        </div>
+
+        <div class="step-item">
+          <h3>Run it</h3>
+          <p>Paste this line and press Enter. It checks for new alerts, scores them, and emails you the ranked summary:</p>
+          <div class="code">python src/main.py --config ./config.yaml --score --email</div>
+          <p>Keeping your profile and key in a separate private folder? Point at that config instead:</p>
+          <div class="code">python src/main.py --config ~/my-job-scorer-config/config.yaml --score --email</div>
+          <p>Want to look before spending anything? Drop <code>--score</code> and it just lists what it found, with no AI calls and no cost.</p>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        <strong>Tip: you can paste.</strong> Copy any command from this page, then in the Terminal press <code>Cmd</code>+<code>V</code> (Mac) or right-click → Paste (Windows). No need to type it by hand.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Your reusable cheat sheet</h2>
+      <p>Fill in your own folder once and keep this somewhere handy (a sticky note, a notes app). Next time, it's just copy-paste-Enter, three lines:</p>
+      <div class="code"><span class="dim"># 1. go to the folder (or drag it in after "cd ")</span>
+cd /path/to/your/job-alert-scorer
+
+<span class="dim"># 2. switch the tool on  (Windows: .venv\Scripts\activate)</span>
+source .venv/bin/activate
+
+<span class="dim"># 3. run it</span>
+python src/main.py --config ./config.yaml --score --email</div>
+      <p>That's the entire thing you'll do each time. The first setup is the slow part; this is the easy part you'll actually repeat.</p>
+    </div>
+
+    <div class="section">
+      <h2>Things that look scary but are normal</h2>
+      <ul>
+        <li><strong>It pauses and seems frozen.</strong> Scoring talks to the AI and takes a few seconds per job. As long as new lines keep appearing (<code>scoring 3/12 ...</code>), it's working — don't close the window.</li>
+        <li><strong>You typed your password and nothing showed up.</strong> If a step ever asks for a password, the Terminal hides what you type on purpose — no dots, no stars. Just type it and press Enter.</li>
+        <li><strong>A wall of text scrolls by.</strong> That's normal output, not errors. Errors usually say <code>Error</code> or <code>Traceback</code> explicitly.</li>
+        <li><strong>You stopped it partway.</strong> No harm done — it saves each score as it goes. Run it again and it skips everything already scored, so you never wait (or pay) twice.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Common hiccups (and the fix)</h2>
+      <p><strong>"no such file or directory: .venv/bin/activate"</strong> — the tool's sandbox wasn't set up, or you're in the wrong folder. Make sure step 1 pointed at the unzipped <code>job-alert-scorer</code> folder. If it still happens, the one-time setup didn't finish — see the <a href="index.html">Getting Started</a> page, or have whoever helped you set it up re-run the install step.</p>
+      <p><strong>"command not found: python"</strong> — try <code>python3</code> instead of <code>python</code> (Mac and Linux often use that name). If neither works, Python isn't installed yet — the Getting Started page covers that.</p>
+      <p><strong>"can't open file 'src/main.py'"</strong> — you're not in the tool's folder. Redo step 1 (<code>cd</code> into the unzipped folder), then try again.</p>
+      <p><strong>"ANTHROPIC_API_KEY is not set"</strong> — your API key isn't where the tool expects it. The <a href="anthropic-setup.html">Anthropic API setup guide</a> walks through fixing that in two minutes.</p>
+    </div>
+
+    <div class="section" style="text-align:center;">
+      <a href="index.html" style="display:inline-block; background:var(--wood-dark); color:var(--cream); padding:11px 26px; border-radius:8px; text-decoration:none; font-size:0.88rem;">← Back to Getting Started</a>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <p>Built by <a href="https://stepinto-ashleysoffice.com">Ashley Sarah</a> &middot; <a href="https://github.com/ashley-sarahsep/job-alert-scorer">View on GitHub</a><br>
+    Part of the Job Alert Scorer project.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

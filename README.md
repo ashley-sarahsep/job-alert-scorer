@@ -327,6 +327,7 @@ docs/
   claude-scoring-template.md   No-code Claude project: scoring only
   profile-guide-visual.html    Visual profile guide (GitHub Pages)
   anthropic-setup.html         Step-by-step Anthropic API setup (GitHub Pages)
+  terminal-basics.html         Terminal primer for non-developers (GitHub Pages)
   PROVIDERS.md                 AI provider notes + review
   index.html                   Illustrated getting-started page (GitHub Pages)
 tests/               Offline tests (no network or API keys needed)
@@ -350,6 +351,7 @@ tests/               Offline tests (no network or API keys needed)
 
 **Setup help:**
 - [Anthropic API setup](https://ashley-sarahsep.github.io/job-alert-scorer/anthropic-setup.html) - step-by-step guide for getting your API key
+- [Using the terminal](https://ashley-sarahsep.github.io/job-alert-scorer/terminal-basics.html) - a 2-minute primer for non-developers, with a copy-paste cheat sheet for running the tool
 
 ---
 
